@@ -1,0 +1,50 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.body {
+  height: 100vh;
+  width: 100vw;
+}
+
+.card {
+  height: 200px;
+  width: 150px;
+  perspective: 500px; /*gives a feel of a 3D image */
+}
+
+.card-inner {
+  position: relative;
+  transition: transform 1500ms;
+  transform-style: preserve-3d;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  width: 100%;
+  height: 100%;
+}
+
+.card-front,
+.card-back {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  backface-visibility: hidden;
+}
+
+.card-front {
+  background-color: purple;
+}
+
+.card-back {
+  background-color: greenyellow;
+  transform: rotateY(180deg);
+}
+
+#card-checkbox:checked + .flashcard .card-inner {
+  transform: rotateX(180deg);
+}
+
+#card-checkbox {
+  display: none;
+}

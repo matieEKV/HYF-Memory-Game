@@ -1,0 +1,10 @@
+[
+  { "name": "coffee", "image": "../images/coffee.jpg" },
+  { "name": "croissant", "image": "../images/croissant.jpg" },
+  { "name": "cupcake", "image": "../images/cupcake.jpg" },
+  { "name": "chocolate", "image": "../images/chocolate.jpg" },
+  { "name": "cookies", "image": "../images/cookies.jpg" },
+  { "name": "pizza", "image": "../images/pizza.jpg" },
+  { "name": "pancakes", "image": "../images/pancakes.jpg" },
+  { "name": "donuts", "image": "../images/donuts.jpg" }
+]

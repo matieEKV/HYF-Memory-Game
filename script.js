@@ -1,34 +1,24 @@
-let running = false;
-let timer = 0;
+//timer logic
+import { startTimer, stopTimer } from "./timer.js";
+let isStarted = false;
 
 const timeDisplay = document.querySelector(".showTime");
 const cardContainer = document.querySelector(".container");
 const check = document.querySelector(".whatever");
 const button = document.querySelector(".click");
 
+// starts the timer once the first card is turned
 cardContainer?.addEventListener("change", () => {
-  running = true;
-  console.log("I am clicked");
-});
-
-button.addEventListener("click", () => {
-  running = false;
-});
-let lastTime = Date.now();
-
-const tick = () => {
-  const now = Date.now();
-  const delta = now - lastTime;
-  lastTime = now;
-
-  if (running) {
-    timer += delta;
-    timeDisplay.textContent = (timer / 1000).toFixed(2) + "s";
+  if (!isStarted) {
+    startTimer((passedTime) => {
+      timeDisplay.textContent = passedTime;
+    });
+    isStarted = true;
   }
+});
 
-  // Loop us around
-  requestAnimationFrame(tick);
-};
-
-// Kick things off
-tick();
+//just a temporary function that stops timer on button click. Will change this later to end of game
+button.addEventListener("click", () => {
+  isStarted = false;
+  stopTimer();
+});

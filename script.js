@@ -4,7 +4,6 @@ let isStarted = false;
 
 const timeDisplay = document.querySelector(".showTime");
 const cardContainer = document.querySelector(".container");
-const check = document.querySelector(".whatever");
 const button = document.querySelector(".click");
 
 // starts the timer once the first card is turned

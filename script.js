@@ -71,7 +71,7 @@ function createCards(cards) {
 }
 
 // ===== FLIP CARD ===== // change this function
-function flipCard() {
+function flipCard(event) {
   if (lockBoard) return;
 
   //timer starts with flip of the first card
@@ -81,17 +81,17 @@ function flipCard() {
     });
     isStarted = true;
   }
-  if (this === firstCard) return;
+  const clickedCard = event.currentTarget;
+  if (firstCard === clickedCard) return;
 
   // ✅ THIS WAS THE MAIN BUG (must be 'flipped')
-  this.classList.add("flipped");
+  clickedCard.classList.add("flipped");
 
   if (!firstCard) {
-    firstCard = this;
+    firstCard = clickedCard;
     return;
   }
-
-  secondCard = this;
+  secondCard = clickedCard;
   lockBoard = true;
 
   counter++;
@@ -117,7 +117,11 @@ function checkForMatch() {
 function disableCards() {
   firstCard.removeEventListener("click", flipCard);
   secondCard.removeEventListener("click", flipCard);
-  resetBoard(); //change name
+  setTimeout(() => {
+    firstCard.style.visibility = "hidden";
+    secondCard.style.visibility = "hidden";
+    anotherTurn();
+  }, 1000);
 }
 
 // ===== UNFLIP WRONG PAIR =====
@@ -125,12 +129,12 @@ function unflipCards() {
   setTimeout(() => {
     firstCard.classList.remove("flipped");
     secondCard.classList.remove("flipped");
-    resetBoard();
+    anotherTurn();
   }, 1000);
 }
 
 // ===== RESET TURN =====
-function resetBoard() {
+function anotherTurn() {
   firstCard = null;
   secondCard = null;
   lockBoard = false;
@@ -138,7 +142,7 @@ function resetBoard() {
 
 // ===== RESTART GAME =====
 function restart() {
-  resetBoard();
+  anotherTurn();
   shuffleCards(cards);
   counter = 0;
   counterElement.textContent = counter;

@@ -110,7 +110,7 @@ function checkForMatch() {
   } else {
     unflipCards();
   }
-
+  //stop the timer once all the cards have been matched
   if (matchCounter === cards.length / 2) {
     isStarted = false;
     stopTimer();

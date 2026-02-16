@@ -1,13 +1,6 @@
-//timer logic
 import { startTimer, stopTimer } from "./timer.js";
-let isStarted = false;
 
 const timeDisplay = document.querySelector(".showTime");
-const cardContainer = document.querySelector(".container");
-const button = document.querySelector(".click");
-
-// starts the timer once the first card is turned
-cardContainer?.addEventListener("change", () => {});
 
 // ===== GET GRID FROM HTML =====
 const gridContainer = document.querySelector(".grid-container");
@@ -18,6 +11,8 @@ let firstCard = null;
 let secondCard = null;
 let lockBoard = false;
 let counter = 0;
+let matchCounter = 0;
+let isStarted = false;
 
 // ===== SHOW INITIAL SCORE =====
 const counterElement = document.querySelector(".counter");
@@ -105,23 +100,25 @@ function flipCard(clickedCard) {
   checkForMatch();
 }
 
-//just a temporary function that stops timer on button click. Will change this later to end of game
-button.addEventListener("click", () => {
-  isStarted = false;
-  stopTimer();
-});
-
 // ===== CHECK MATCH =====
 function checkForMatch() {
   const isMatch = firstCard.dataset.name === secondCard.dataset.name;
 
-  isMatch ? disableCards() : unflipCards();
+  if (isMatch) {
+    disableCards();
+    matchCounter++;
+  } else {
+    unflipCards();
+  }
+
+  if (matchCounter === cards.length / 2) {
+    isStarted = false;
+    stopTimer();
+  }
 }
 
 // ===== DISABLE MATCHED CARDS =====
 function disableCards() {
-  firstCard.removeEventListener("click", flipCard);
-  secondCard.removeEventListener("click", flipCard);
   setTimeout(() => {
     firstCard.style.visibility = "hidden";
     secondCard.style.visibility = "hidden";

@@ -49,6 +49,13 @@ function shuffleCards(cards) {
   }
 }
 
+// ===== ADD EVENT LISTENER TO THE CONTAINER AND THE CLICKED CARD =====
+gridContainer.addEventListener("click", (event) => {
+  const clickedCard = event.target.closest(".card");
+
+  if (!clickedCard) return;
+  flipCard(clickedCard);
+});
 // ===== CREATE CARD ELEMENTS =====
 function createCards(cards) {
   for (let card of cards) {
@@ -66,12 +73,11 @@ function createCards(cards) {
     `;
 
     gridContainer.appendChild(cardElement);
-    cardElement.addEventListener("click", flipCard);
   }
 }
 
-// ===== FLIP CARD ===== // change this function
-function flipCard(event) {
+// ===== FLIP CARD =====
+function flipCard(clickedCard) {
   if (lockBoard) return;
 
   //timer starts with flip of the first card
@@ -81,7 +87,6 @@ function flipCard(event) {
     });
     isStarted = true;
   }
-  const clickedCard = event.currentTarget;
   if (firstCard === clickedCard) return;
 
   // ✅ THIS WAS THE MAIN BUG (must be 'flipped')

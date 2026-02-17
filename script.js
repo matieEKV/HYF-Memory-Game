@@ -1,6 +1,15 @@
 import { startTimer, stopTimer } from "./timer.js";
 
 const timeDisplay = document.querySelector(".showTime");
+const modal = document.querySelector(".modal-container");
+const startGame = document.querySelector(".start-game");
+const overlay = document.querySelector(".overlay");
+
+// ===== CLOSE THE MODAL ONCE BUTTON IS CLICKED =====
+startGame?.addEventListener("click", () => {
+  modal.style.display = "none";
+  overlay.style.display = "none";
+});
 
 // ===== GET GRID FROM HTML =====
 const gridContainer = document.querySelector(".grid-container");
@@ -45,7 +54,7 @@ function shuffleCards(cards) {
 }
 
 // ===== ADD EVENT LISTENER TO THE CONTAINER AND THE CLICKED CARD =====
-gridContainer.addEventListener("click", (event) => {
+gridContainer?.addEventListener("click", (event) => {
   const clickedCard = event.target.closest(".card");
 
   if (!clickedCard) return;

@@ -25,9 +25,34 @@
         <div class="options flex-column-center">
           <h3>BOARD SIZE</h3>
           <div class="button-container flex-row-center">
-            <button class="small buttons-small">SMALL</button>
-            <button class="medium buttons-small">MEDIUM</button>
-            <button class="large buttons-small">LARGE</button>
+            <label class="size-option">
+              <input
+                type="radio"
+                name="board_size"
+                value="small"
+                class="button-radio"
+              />
+              <span class="radio-button flex-row-center">SMALL</span>
+            </label>
+
+            <label class="size-option">
+              <input
+                type="radio"
+                name="board_size"
+                value="medium"
+                class="button-radio"
+              />
+              <span class="radio-button flex-row-center">MEDIUM</span>
+            </label>
+            <label class="size-option">
+              <input
+                type="radio"
+                name="board_size"
+                value="large"
+                class="button-radio"
+              />
+              <span class="radio-button flex-row-center">LARGE</span>
+            </label>
           </div>
           <h3>CARDS</h3>
           <div class="decks-container flex-row-center">

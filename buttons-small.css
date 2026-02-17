@@ -1,4 +1,4 @@
-.buttons-small {
+.radio-button {
   background-color: transparent;
   border: var(--border);
   color: white;
@@ -6,13 +6,16 @@
   width: 7rem;
   height: 3rem;
   font-size: 1rem;
+  align-items: center;
+  cursor: pointer;
 }
 
-.buttons-small:hover {
+.radio-button:hover {
   background-color: #1e2e53;
 }
 
-.buttons-small:active {
+.button-radio:checked + .radio-button,
+.active {
   background-color: var(--button-color);
   color: black;
 }

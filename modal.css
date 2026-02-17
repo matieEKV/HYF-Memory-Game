@@ -78,9 +78,11 @@
   width: 4.2rem;
   height: 5.5rem;
   object-fit: cover;
+  cursor: pointer;
 }
 
-.hidden-radio {
+.hidden-radio,
+.button-radio {
   display: none;
 }
 
@@ -99,11 +101,12 @@
   margin-top: 1rem;
   gap: 1rem;
 }
+
 .stars {
   color: gold;
   opacity: 0;
-  transition: opacity 0.3s ease; /* Makes it fade in nicely */
-  pointer-events: none; /* Prevents stars from blocking clicks on the card */
+  transition: opacity 0.3s ease;
+  pointer-events: none;
 }
 
 /* Show the stars ONLY when hovered OR when the radio is checked */

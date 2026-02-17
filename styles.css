@@ -1,12 +1,13 @@
+@import "variables.css";
+@import "modal.css";
+@import "utility.css";
+@import "buttons-small.css";
+@import "buttons-large.css";
+
 .showTime {
   width: 70px;
   height: 30px;
   text-align: center;
-}
-
-.timer-container {
-  display: flex;
-  justify-content: center;
 }
 /* ===== RESET ===== */
 * {
@@ -18,13 +19,14 @@
 /* ===== PAGE ===== */
 body {
   min-height: 100vh;
-  background-color: #0f172a;
+  background-color: var(--primary-background);
   color: white;
   font-family: Arial, sans-serif;
   perspective: 1000px; /* 3D depth */
 }
 
-h1 {
+h1,
+h2 {
   text-align: center;
   font-size: 28px;
   margin: 12px 0;
@@ -42,16 +44,6 @@ p {
   display: flex;
   justify-content: center;
   margin-bottom: 10px;
-}
-
-.actions button {
-  padding: 6px 14px;
-  font-size: 16px;
-  border-radius: 8px;
-  background-color: #22c55e;
-  color: white;
-  border: none;
-  cursor: pointer;
 }
 
 /* ===== GRID (FIXED SIZE – ONE SCREEN) ===== */

@@ -9,16 +9,108 @@
   </head>
   <body>
     <h1>Memory Game</h1>
-    <div class="timer-container">
+    <!-- overlay to dim the page under modal -->
+    <div class="overlay"></div>
+    <!-- modal for starting the game -->
+    <div class="modal-container center-div">
+      <div class="modal flex-column-center">
+        <h2>Memory Game</h2>
+        <label for="user-name"></label>
+        <input
+          class="user-name"
+          id="user-name"
+          type="text"
+          placeholder="Your name here"
+        />
+        <div class="options flex-column-center">
+          <h3>BOARD SIZE</h3>
+          <div class="button-container flex-row-center">
+            <button class="small buttons-small">SMALL</button>
+            <button class="medium buttons-small">MEDIUM</button>
+            <button class="large buttons-small">LARGE</button>
+          </div>
+          <h3>CARDS</h3>
+          <div class="decks-container flex-row-center">
+            <label class="deck-choice">
+              <input
+                type="radio"
+                name="deck_selection"
+                value="5"
+                class="hidden-radio"
+              />
+              <div class="card-content">
+                <img src="images/animals-thumb.jpg" class="thumbnail" />
+                <div class="stars"><span class="span-stars">★☆☆☆☆</span></div>
+              </div>
+            </label>
+
+            <label class="deck-choice">
+              <input
+                type="radio"
+                name="deck_selection"
+                value="2"
+                class="hidden-radio"
+              />
+              <div class="card-content">
+                <img src="images/coffee.jpg" class="thumbnail" />
+                <div class="stars"><span class="span-stars">★★☆☆☆</span></div>
+              </div>
+            </label>
+
+            <label class="deck-choice">
+              <input
+                type="radio"
+                name="deck_selection"
+                value="3"
+                class="hidden-radio"
+              />
+              <div class="card-content">
+                <img src="images/cats-thumb.jpg" class="thumbnail" />
+                <div class="stars"><span class="span-stars">★★★☆☆</span></div>
+              </div>
+            </label>
+
+            <label class="deck-choice">
+              <input
+                type="radio"
+                name="deck_selection"
+                value="1"
+                class="hidden-radio"
+              />
+              <div class="card-content">
+                <img src="images/pattern-thumb.jpg" class="thumbnail" />
+                <div class="stars"><span class="span-stars">★★★★☆</span></div>
+              </div>
+            </label>
+
+            <label class="deck-choice">
+              <input
+                type="radio"
+                name="deck_selection"
+                value="4"
+                class="hidden-radio"
+              />
+              <div class="card-content">
+                <img src="images/abstract-thumb.jpg" class="thumbnail" />
+                <div class="stars"><span class="span-stars">★★★★★</span></div>
+              </div>
+            </label>
+          </div>
+        </div>
+        <button class="button-large">START GAME</button>
+      </div>
+    </div>
+    <!-- timer -->
+    <div class="timer-container flex-row-center">
       <p>Time:</p>
       <p class="showTime">0 : 0</p>
     </div>
+    <!-- game board -->
     <div class="grid-container"></div>
     <p>Counter: <span class="counter">0</span></p>
     <div class="actions">
-      <button onclick="restart()">Restart Game</button>
+      <button class="button-large" onclick="restart()">Restart Game</button>
     </div>
-    <button class="click">Stop counter</button>
 
     <script type="module" src="script.js"></script>
   </body>

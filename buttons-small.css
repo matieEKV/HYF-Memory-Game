@@ -1,0 +1,18 @@
+.buttons-small {
+  background-color: transparent;
+  border: var(--border);
+  color: white;
+  border-radius: 25px;
+  width: 7rem;
+  height: 3rem;
+  font-size: 1rem;
+}
+
+.buttons-small:hover {
+  background-color: #1e2e53;
+}
+
+.buttons-small:active {
+  background-color: var(--button-color);
+  color: black;
+}

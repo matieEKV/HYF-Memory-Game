@@ -1,13 +1,6 @@
-//timer logic
 import { startTimer, stopTimer } from "./timer.js";
-let isStarted = false;
 
 const timeDisplay = document.querySelector(".showTime");
-const cardContainer = document.querySelector(".container");
-const button = document.querySelector(".click");
-
-// starts the timer once the first card is turned
-cardContainer?.addEventListener("change", () => {});
 
 // ===== GET GRID FROM HTML =====
 const gridContainer = document.querySelector(".grid-container");
@@ -18,6 +11,8 @@ let firstCard = null;
 let secondCard = null;
 let lockBoard = false;
 let counter = 0;
+let matchCounter = 0;
+let isStarted = false;
 
 // ===== SHOW INITIAL SCORE =====
 const counterElement = document.querySelector(".counter");
@@ -49,6 +44,13 @@ function shuffleCards(cards) {
   }
 }
 
+// ===== ADD EVENT LISTENER TO THE CONTAINER AND THE CLICKED CARD =====
+gridContainer.addEventListener("click", (event) => {
+  const clickedCard = event.target.closest(".card");
+
+  if (!clickedCard) return;
+  flipCard(clickedCard);
+});
 // ===== CREATE CARD ELEMENTS =====
 function createCards(cards) {
   for (let card of cards) {
@@ -66,12 +68,11 @@ function createCards(cards) {
     `;
 
     gridContainer.appendChild(cardElement);
-    cardElement.addEventListener("click", flipCard);
   }
 }
 
-// ===== FLIP CARD ===== // change this function
-function flipCard() {
+// ===== FLIP CARD =====
+function flipCard(clickedCard) {
   if (lockBoard) return;
 
   //timer starts with flip of the first card
@@ -81,17 +82,16 @@ function flipCard() {
     });
     isStarted = true;
   }
-  if (this === firstCard) return;
+  if (firstCard === clickedCard) return;
 
   // ✅ THIS WAS THE MAIN BUG (must be 'flipped')
-  this.classList.add("flipped");
+  clickedCard.classList.add("flipped");
 
   if (!firstCard) {
-    firstCard = this;
+    firstCard = clickedCard;
     return;
   }
-
-  secondCard = this;
+  secondCard = clickedCard;
   lockBoard = true;
 
   counter++;
@@ -100,24 +100,30 @@ function flipCard() {
   checkForMatch();
 }
 
-//just a temporary function that stops timer on button click. Will change this later to end of game
-button.addEventListener("click", () => {
-  isStarted = false;
-  stopTimer();
-});
-
 // ===== CHECK MATCH =====
 function checkForMatch() {
   const isMatch = firstCard.dataset.name === secondCard.dataset.name;
 
-  isMatch ? disableCards() : unflipCards();
+  if (isMatch) {
+    disableCards();
+    matchCounter++;
+  } else {
+    unflipCards();
+  }
+  //stop the timer once all the cards have been matched
+  if (matchCounter === cards.length / 2) {
+    isStarted = false;
+    stopTimer();
+  }
 }
 
 // ===== DISABLE MATCHED CARDS =====
 function disableCards() {
-  firstCard.removeEventListener("click", flipCard);
-  secondCard.removeEventListener("click", flipCard);
-  resetBoard(); //change name
+  setTimeout(() => {
+    firstCard.style.visibility = "hidden";
+    secondCard.style.visibility = "hidden";
+    anotherTurn();
+  }, 1000);
 }
 
 // ===== UNFLIP WRONG PAIR =====
@@ -125,12 +131,12 @@ function unflipCards() {
   setTimeout(() => {
     firstCard.classList.remove("flipped");
     secondCard.classList.remove("flipped");
-    resetBoard();
+    anotherTurn();
   }, 1000);
 }
 
 // ===== RESET TURN =====
-function resetBoard() {
+function anotherTurn() {
   firstCard = null;
   secondCard = null;
   lockBoard = false;
@@ -138,7 +144,7 @@ function resetBoard() {
 
 // ===== RESTART GAME =====
 function restart() {
-  resetBoard();
+  anotherTurn();
   shuffleCards(cards);
   counter = 0;
   counterElement.textContent = counter;

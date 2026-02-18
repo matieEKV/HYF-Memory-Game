@@ -1,5 +1,10 @@
+/* ===== RESPONSIVENESS FOR MOBILE ===== */
+html {
+  font-size: 10px;
+}
+
 .modal-container {
-  width: 70%;
+  width: 80%;
   height: 60%;
   position: fixed;
   visibility: visible;
@@ -40,7 +45,7 @@
   border: none;
   border-bottom: var(--border);
   height: 2rem;
-  width: 50%;
+  width: 40%;
   cursor: pointer;
   color: white;
   font-size: 1.3rem;
@@ -64,6 +69,7 @@
 }
 
 .options {
+  max-width: 100%;
   border: var(--border);
   padding: 1rem;
   margin-bottom: 1rem;
@@ -93,6 +99,7 @@
 .stars div {
   font-size: 0.8rem;
 }
+
 .span-stars {
   font-size: 0.8rem;
 }
@@ -129,8 +136,11 @@
 }
 
 @media (min-width: 880px) {
+  html {
+    font-size: 16px;
+  }
   .modal-container {
-    width: 40%;
+    width: 60%;
     height: 80%;
   }
 }

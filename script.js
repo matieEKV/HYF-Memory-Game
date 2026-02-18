@@ -6,11 +6,27 @@ const startGame = document.querySelector(".start-game");
 const overlay = document.querySelector(".overlay");
 const gridContainer = document.querySelector(".grid-container");
 const counterElement = document.querySelector(".counter");
+const boardSize = document.querySelector(".button-radio");
 
+let limit;
+
+// ===== DETERMINE THE VALUE OF BOARD SIZE =====
+switch (true) {
+  case boardSize.value === "small":
+    limit = 8;
+    break;
+  case boardSize.value === "medium":
+    limit = 18;
+    break;
+  case boardSize.value === "large":
+    limit = 25;
+    break;
+}
 // ===== CLOSE THE MODAL ONCE BUTTON IS CLICKED =====
 startGame?.addEventListener("click", () => {
   modal.style.display = "none";
   overlay.style.display = "none";
+  fetchData();
 });
 
 // ===== GAME STATE =====
@@ -24,16 +40,19 @@ let isStarted = false;
 
 // ===== SHOW INITIAL SCORE =====
 counterElement.textContent = counter;
-
-// ===== FETCH CARD DATA =====
-fetch("../data/cards.json")
-  .then((res) => res.json())
-  .then((data) => {
-    // duplicate cards to make pairs
-    cards = [...data, ...data];
-    shuffleCards(cards);
-    createCards(cards);
-  });
+let data;
+function fetchData() {
+  //get the value of the clicked card
+  const deck = document.querySelector("input[name=deck_selection]:checked");
+  fetch(`http://localhost:3000/${deck.value}?${limit}`)
+    .then((res) => res.json())
+    .then((data) => {
+      // duplicate cards to make pairs
+      cards = [...data, ...data];
+      shuffleCards(cards);
+      createCards(cards);
+    });
+}
 
 // ===== ADD EVENT LISTENER TO THE CONTAINER AND THE CLICKED CARD =====
 gridContainer?.addEventListener("click", (event) => {
@@ -42,6 +61,7 @@ gridContainer?.addEventListener("click", (event) => {
   if (!clickedCard) return;
   flipCard(clickedCard);
 });
+
 // ===== CREATE CARD ELEMENTS =====
 function createCards(cards) {
   for (let card of cards) {
@@ -49,11 +69,11 @@ function createCards(cards) {
     cardElement.classList.add("card");
 
     // store card name for matching
-    cardElement.dataset.name = card.name;
+    cardElement.dataset.name = card.file_name;
 
     cardElement.innerHTML = `
       <div class="front">
-        <img src="${card.image}" />
+        <img src="${card.file_path}" />
       </div>
       <div class="back"></div>
     `;
@@ -157,4 +177,13 @@ function restart() {
   counterElement.textContent = counter;
   gridContainer.innerHTML = "";
   createCards(cards);
+}
+
+// ===== GET USER NAME =====
+function getUserName() {
+  const name = document.querySelector("#user-name");
+  if (!name.value) {
+    name = "Player 1";
+  }
+  return name.value.trim();
 }

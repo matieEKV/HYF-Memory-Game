@@ -1,19 +1,25 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./styles.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles.css" />
     <title>Memory Game</title>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Memory Game</h1>
+    <div class="timer-container">
+      <p>Time:</p>
+      <p class="showTime">0 : 0</p>
+    </div>
     <div class="grid-container"></div>
     <p>Counter: <span class="counter">0</span></p>
     <div class="actions">
-        <button onclick="restart()">Restart Game</button>
+      <button onclick="restart()">Restart Game</button>
     </div>
-    <script src="./script.js"></script>
+    <button class="click">Stop counter</button>
 
+    <script type="module" src="script.js"></script>
+  </body>
 </html>

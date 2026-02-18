@@ -1,0 +1,136 @@
+.modal-container {
+  width: 70%;
+  height: 60%;
+  position: fixed;
+  visibility: visible;
+  transition:
+    transform 0.4s,
+    top 0.4s;
+  animation-name: animate-window;
+  animation-duration: 0.4s;
+  z-index: 15; /* has to be the top most position */
+  padding: 10px;
+  background-color: var(--primary-background);
+  border: var(--border);
+}
+
+.modal {
+  height: 100%;
+  width: 100%;
+}
+
+.overlay {
+  position: fixed;
+  display: block;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(3px);
+  z-index: 14;
+  cursor: pointer;
+}
+
+.user-name {
+  margin: 1rem 0 2rem 0;
+  background-color: var(--primary-background);
+  border: none;
+  border-bottom: var(--border);
+  height: 2rem;
+  width: 50%;
+  cursor: pointer;
+  color: white;
+  font-size: 1.3rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.user-name::placeholder {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+}
+
+.user-name:focus {
+  outline: none;
+}
+
+.user-name:focus::placeholder {
+  color: transparent;
+}
+
+.options {
+  border: var(--border);
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.button-container {
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.thumbnail {
+  width: 4.2rem;
+  height: 5.5rem;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.hidden-radio,
+.button-radio {
+  display: none;
+}
+
+.hidden-radio:checked + .card-content {
+  transform: scale(1.15);
+}
+
+.stars div {
+  font-size: 0.8rem;
+}
+.span-stars {
+  font-size: 0.8rem;
+}
+
+.decks-container {
+  margin-top: 1rem;
+  gap: 1rem;
+}
+
+.stars {
+  color: gold;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+/* Show the stars ONLY when hovered OR when the radio is checked */
+.deck-choice:hover .stars,
+.hidden-radio:checked + .card-content .stars {
+  opacity: 1;
+}
+
+/* animate appearing window */
+@keyframes animate-window {
+  from {
+    top: -300px;
+    opacity: 0;
+  }
+
+  to {
+    top: 50%;
+    opacity: 1;
+  }
+}
+
+@media (min-width: 880px) {
+  .modal-container {
+    width: 40%;
+    height: 80%;
+  }
+}

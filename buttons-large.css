@@ -1,0 +1,18 @@
+.button-large {
+  padding: 6px 14px;
+  font-size: 16px;
+  border-radius: 8px;
+  background-color: var(--button-color);
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.button-large:hover {
+  background-color: #1fb155;
+}
+
+.button-large:active {
+  background-color: #3bf57f;
+  color: black;
+}

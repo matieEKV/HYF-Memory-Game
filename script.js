@@ -1,9 +1,17 @@
 import { startTimer, stopTimer } from "./timer.js";
 
 const timeDisplay = document.querySelector(".showTime");
-
-// ===== GET GRID FROM HTML =====
+const modal = document.querySelector(".modal-container");
+const startGame = document.querySelector(".start-game");
+const overlay = document.querySelector(".overlay");
 const gridContainer = document.querySelector(".grid-container");
+const counterElement = document.querySelector(".counter");
+
+// ===== CLOSE THE MODAL ONCE BUTTON IS CLICKED =====
+startGame?.addEventListener("click", () => {
+  modal.style.display = "none";
+  overlay.style.display = "none";
+});
 
 // ===== GAME STATE =====
 let cards = [];
@@ -15,7 +23,6 @@ let matchCounter = 0;
 let isStarted = false;
 
 // ===== SHOW INITIAL SCORE =====
-const counterElement = document.querySelector(".counter");
 counterElement.textContent = counter;
 
 // ===== FETCH CARD DATA =====
@@ -28,24 +35,8 @@ fetch("../data/cards.json")
     createCards(cards);
   });
 
-// ===== SHUFFLE CARDS =====
-function shuffleCards(cards) {
-  let currentIndex = cards.length;
-  let randomIndex;
-  let temporaryValue;
-
-  while (currentIndex !== 0) {
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex--;
-
-    temporaryValue = cards[currentIndex];
-    cards[currentIndex] = cards[randomIndex];
-    cards[randomIndex] = temporaryValue;
-  }
-}
-
 // ===== ADD EVENT LISTENER TO THE CONTAINER AND THE CLICKED CARD =====
-gridContainer.addEventListener("click", (event) => {
+gridContainer?.addEventListener("click", (event) => {
   const clickedCard = event.target.closest(".card");
 
   if (!clickedCard) return;
@@ -68,6 +59,22 @@ function createCards(cards) {
     `;
 
     gridContainer.appendChild(cardElement);
+  }
+}
+
+// ===== SHUFFLE CARDS =====
+function shuffleCards(cards) {
+  let currentIndex = cards.length;
+  let randomIndex;
+  let temporaryValue;
+
+  while (currentIndex !== 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    temporaryValue = cards[currentIndex];
+    cards[currentIndex] = cards[randomIndex];
+    cards[randomIndex] = temporaryValue;
   }
 }
 

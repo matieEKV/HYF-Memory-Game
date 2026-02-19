@@ -15,7 +15,6 @@ const gameStart = document.querySelector(".modal-start");
 const gameEnd = document.querySelector(".modal-end");
 const restartButton = document.querySelector(".restart");
 const startNewGame = document.querySelector(".reopen-options");
-const buttons = document.querySelector(".actions");
 
 // ===== CLOSE THE MODAL ONCE BUTTON IS CLICKED =====
 startGame?.addEventListener("click", () => {
@@ -169,6 +168,7 @@ function checkForMatch() {
   } else {
     unflipCards();
   }
+
   //stop the timer once all the cards have been matched
   if (matchCounter === cards.length / 2) {
     isStarted = false;

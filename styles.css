@@ -11,10 +11,12 @@
   padding: 0;
 }
 
-.showTime {
-  width: 70px;
-  height: 30px;
-  text-align: center;
+.timer-container {
+  gap: 2rem;
+}
+
+p span {
+  margin-left: 3px;
 }
 
 /* ===== PAGE ===== */
@@ -42,8 +44,6 @@ p {
 
 /* ===== BUTTON ===== */
 .actions {
-  display: flex;
-  justify-content: center;
   margin-bottom: 10px;
 }
 
@@ -107,22 +107,16 @@ p {
   transform: rotateY(180deg);
 }
 
-/* Mobile adjustments (for screens smaller than 480px) */
+/* Make sure cards shrink in size with smaller screen */
 @media (max-width: 660px) {
   .grid-container {
-    /* Reduce the 'floor' so cards can shrink further */
     grid-template-columns: repeat(auto-fit, minmax(5rem, 1fr));
-
-    /* Tighten the space between cards */
     gap: 4px;
-
-    /* Ensure the container uses as much width as possible */
     width: 95%;
   }
 
-  /* You also need to adjust the card height to keep the proportions */
   .card {
-    width: auto; /* Let the grid determine the width */
-    height: 6rem; /* Adjust height to match the smaller width */
+    width: auto;
+    height: 6rem;
   }
 }

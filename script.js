@@ -1,4 +1,4 @@
-import { startTimer, stopTimer } from "./timer.js";
+import { startTimer, stopTimer, resetTimer } from "./timer.js";
 
 const timeDisplay = document.querySelector(".showTime");
 const modal = document.querySelector(".modal-container");
@@ -9,21 +9,22 @@ const counterElement = document.querySelector(".counter");
 const boardSize = document.querySelector(".button-radio");
 const gameStart = document.querySelector(".modal-start");
 const gameEnd = document.querySelector(".hidden");
+const restartButton = document.querySelector(".restart");
 
 let limit, time;
 
-// ===== DETERMINE THE VALUE OF BOARD SIZE =====
-switch (true) {
-  case boardSize.value === "small":
-    limit = 8;
-    break;
-  case boardSize.value === "medium":
-    limit = 18;
-    break;
-  case boardSize.value === "large":
-    limit = 25;
-    break;
-}
+// // ===== DETERMINE THE VALUE OF BOARD SIZE =====
+// switch (true) {
+//   case boardSize.value === "small":
+//     limit = 8;
+//     break;
+//   case boardSize.value === "medium":
+//     limit = 18;
+//     break;
+//   case boardSize.value === "large":
+//     limit = 25;
+//     break;
+// }
 
 // ===== CLOSE THE MODAL ONCE BUTTON IS CLICKED =====
 startGame?.addEventListener("click", () => {
@@ -31,6 +32,10 @@ startGame?.addEventListener("click", () => {
   fetchData();
 });
 
+// ===== RESTART SAME BOARD ONCE BUTTON IS CLICKED =====
+restartButton?.addEventListener("click", () => {
+  restart();
+});
 // ===== GAME STATE =====
 let cards = [];
 let firstCard = null;
@@ -40,18 +45,26 @@ let counter = 0;
 let matchCounter = 0;
 let isStarted = false;
 
+let originalDeck;
+
 // ===== SHOW INITIAL SCORE =====
 counterElement.textContent = counter;
 let data;
 function fetchData() {
   //get the value of the clicked card
-  const deck = document.querySelector("input[name=deck_selection]:checked");
-  fetch(`http://localhost:3000/${deck.value}?${limit}`)
+  const selectedSize = document.querySelector(
+    "input[name=board_size]:checked",
+  ).value;
+  const deck = document.querySelector(
+    "input[name=deck_selection]:checked",
+  ).value;
+  fetch(`http://localhost:3000/${deck}?limit=${selectedSize}`)
     .then((res) => res.json())
     .then((data) => {
       // duplicate cards to make pairs
       cards = [...data, ...data];
       shuffleCards(cards);
+      originalDeck = [...cards];
       createCards(cards);
     });
 }
@@ -177,11 +190,14 @@ function anotherTurn() {
 // ===== RESTART GAME =====
 function restart() {
   anotherTurn();
-  shuffleCards(cards);
   counter = 0;
   counterElement.textContent = counter;
   gridContainer.innerHTML = "";
-  createCards(cards);
+  createCards(originalDeck);
+  resetTimer();
+  isStarted = false;
+  time = stopTimer();
+  timeDisplay.textContent = "0 : 0";
 }
 
 // ===== GET USER NAME =====

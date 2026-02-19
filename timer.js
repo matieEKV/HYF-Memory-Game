@@ -22,4 +22,9 @@ function stopTimer() {
   timerInterval = null;
 }
 
-export { startTimer, stopTimer };
+function resetTimer() {
+  minutes = 0;
+  seconds = 0;
+}
+
+export { startTimer, stopTimer, resetTimer };

@@ -10,21 +10,7 @@ const boardSize = document.querySelector(".button-radio");
 const gameStart = document.querySelector(".modal-start");
 const gameEnd = document.querySelector(".hidden");
 const restartButton = document.querySelector(".restart");
-
-let limit, time;
-
-// // ===== DETERMINE THE VALUE OF BOARD SIZE =====
-// switch (true) {
-//   case boardSize.value === "small":
-//     limit = 8;
-//     break;
-//   case boardSize.value === "medium":
-//     limit = 18;
-//     break;
-//   case boardSize.value === "large":
-//     limit = 25;
-//     break;
-// }
+const startNewGame = document.querySelector(".reopen-options");
 
 // ===== CLOSE THE MODAL ONCE BUTTON IS CLICKED =====
 startGame?.addEventListener("click", () => {
@@ -36,6 +22,10 @@ startGame?.addEventListener("click", () => {
 restartButton?.addEventListener("click", () => {
   restart();
 });
+
+// ===== OPEN OPTIONS TO START NEW BOARD =====
+startNewGame?.addEventListener("click", () => openModal(gameStart, gameEnd));
+
 // ===== GAME STATE =====
 let cards = [];
 let firstCard = null;
@@ -44,7 +34,6 @@ let lockBoard = false;
 let counter = 0;
 let matchCounter = 0;
 let isStarted = false;
-
 let originalDeck;
 
 // ===== SHOW INITIAL SCORE =====
@@ -194,10 +183,10 @@ function restart() {
   counterElement.textContent = counter;
   gridContainer.innerHTML = "";
   createCards(originalDeck);
+  timeDisplay.textContent = "0 : 0";
   resetTimer();
   isStarted = false;
-  time = stopTimer();
-  timeDisplay.textContent = "0 : 0";
+  stopTimer();
 }
 
 // ===== GET USER NAME =====
@@ -216,6 +205,7 @@ function closeModal() {
 
 function openModal(open, close) {
   modal.style.display = "block";
+  overlay.style.display = "block";
   open.classList.remove("hidden");
   close.classList.add("hidden");
 }

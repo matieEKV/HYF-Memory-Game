@@ -1,6 +1,6 @@
 //FALLBACK OPTIONS
 
-const boardSizeFallback = [9, 20, 25];
+const boardSizeFallback = ["9", "15", "25"];
 const decksFallback = [1, 2, 3, 4, 5];
 
 function getRandomSize() {

@@ -60,18 +60,19 @@ function fetchData() {
   )?.value;
 
   //select the size of the grid based on the number of cards
+  if (!deck) {
+    deck = getRandomDeck();
+  }
+  if (!selectedSize) {
+    selectedSize = getRandomSize();
+  }
+
   if (selectedSize === "9") {
     gridContainer?.classList.add("grid-small");
   } else if (selectedSize === "20") {
     gridContainer?.classList.add("grid-medium");
   } else {
     gridContainer?.classList.add("grid-large");
-  }
-  if (!deck) {
-    deck = getRandomDeck();
-  }
-  if (!selectedSize) {
-    selectedSize = getRandomSize();
   }
 
   fetch(`http://localhost:3000/${deck}?limit=${selectedSize}`)

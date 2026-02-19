@@ -6,11 +6,11 @@ const startGame = document.querySelector(".start-game");
 const overlay = document.querySelector(".overlay");
 const gridContainer = document.querySelector(".grid-container");
 const counterElement = document.querySelector(".counter");
-const boardSize = document.querySelector(".button-radio");
 const gameStart = document.querySelector(".modal-start");
-const gameEnd = document.querySelector(".hidden");
+const gameEnd = document.querySelector(".modal-end");
 const restartButton = document.querySelector(".restart");
 const startNewGame = document.querySelector(".reopen-options");
+const buttons = document.querySelector(".actions");
 
 // ===== CLOSE THE MODAL ONCE BUTTON IS CLICKED =====
 startGame?.addEventListener("click", () => {
@@ -24,7 +24,12 @@ restartButton?.addEventListener("click", () => {
 });
 
 // ===== OPEN OPTIONS TO START NEW BOARD =====
-startNewGame?.addEventListener("click", () => openModal(gameStart, gameEnd));
+startNewGame?.addEventListener("click", () => {
+  openModal(gameStart, gameEnd);
+  gridContainer.innerHTML = "";
+  buttons.style.zIndex = "1";
+  resetStats();
+});
 
 // ===== GAME STATE =====
 let cards = [];
@@ -38,15 +43,33 @@ let originalDeck;
 
 // ===== SHOW INITIAL SCORE =====
 counterElement.textContent = counter;
-let data;
+
+// ===== GET DATA FROM DATABASE =====
 function fetchData() {
   //get the value of the clicked card
-  const selectedSize = document.querySelector(
+
+  let selectedSize = document.querySelector(
     "input[name=board_size]:checked",
-  ).value;
-  const deck = document.querySelector(
+  )?.value;
+  let deck = document.querySelector(
     "input[name=deck_selection]:checked",
-  ).value;
+  )?.value;
+
+  //select the size of the grid based on the number of cards
+  if (selectedSize === "9") {
+    gridContainer?.classList.add("grid-small");
+  } else if (selectedSize === "20") {
+    gridContainer?.classList.add("grid-medium");
+  } else {
+    gridContainer?.classList.add("grid-large");
+  }
+  if (!deck) {
+    deck = getRandomDeck();
+  }
+  if (!selectedSize) {
+    selectedSize = getRandomSize();
+  }
+
   fetch(`http://localhost:3000/${deck}?limit=${selectedSize}`)
     .then((res) => res.json())
     .then((data) => {
@@ -144,7 +167,7 @@ function checkForMatch() {
   //stop the timer once all the cards have been matched
   if (matchCounter === cards.length / 2) {
     isStarted = false;
-    time = stopTimer();
+    stopTimer();
     const name = getUserName();
     createMessageEl(name, timeDisplay.textContent, counter);
     openModal(gameEnd, gameStart);
@@ -176,24 +199,31 @@ function anotherTurn() {
   lockBoard = false;
 }
 
-// ===== RESTART GAME =====
-function restart() {
-  anotherTurn();
-  counter = 0;
-  counterElement.textContent = counter;
-  gridContainer.innerHTML = "";
-  createCards(originalDeck);
+function resetStats() {
   timeDisplay.textContent = "0 : 0";
   resetTimer();
   isStarted = false;
   stopTimer();
+  matchCounter = 0;
+  counter = 0;
+  counterElement.textContent = 0;
+}
+
+// ===== RESTART GAME =====
+function restart() {
+  anotherTurn();
+  gridContainer.innerHTML = "";
+  createCards(originalDeck);
+  resetStats();
+  closeModal();
 }
 
 // ===== GET USER NAME =====
 function getUserName() {
-  const name = document.querySelector("#user-name");
+  let name = document.querySelector("#user-name");
   if (!name.value) {
     name = "Player";
+    return name;
   }
   return name.value.trim();
 }
@@ -208,14 +238,30 @@ function openModal(open, close) {
   overlay.style.display = "block";
   open.classList.remove("hidden");
   close.classList.add("hidden");
+  if (open === gameEnd) {
+    buttons.style.zIndex = "20";
+  }
 }
 
 function createMessageEl(name, time, turns) {
-  const element1 = document.createElement("p");
-  const element2 = document.createElement("p");
-  gameEnd.appendChild(element1);
-  gameEnd.appendChild(element2);
+  const message1 = document.querySelector(".message1");
+  const message2 = document.querySelector(".message2");
 
-  element1.textContent = `Congratulations ${name}!`;
-  element2.textContent = `You finished the game with ${turns} turns in ${time} `;
+  message1.textContent = `Congratulations ${name}!`;
+  message2.textContent = `You finished the game with ${turns} turns in ${time} `;
+}
+
+//FALLBACK OPTIONS
+
+const boardSizeFallback = [9, 20, 25];
+const decksFallback = [1, 2, 3, 4, 5];
+
+function getRandomSize() {
+  return boardSizeFallback[
+    Math.floor(Math.random() * boardSizeFallback.length)
+  ];
+}
+
+function getRandomDeck() {
+  return decksFallback[Math.floor(Math.random() * decksFallback.length)];
 }

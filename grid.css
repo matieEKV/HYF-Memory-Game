@@ -1,0 +1,22 @@
+/* ===== GRID RESPONSIVE CONTAINER ===== */
+.grid-container {
+  width: max-content;
+  max-width: 90vw;
+  display: grid;
+  gap: 10px;
+  justify-items: center;
+  margin: 0 auto 2rem auto;
+}
+
+/* ===== GRID COLUMNS BASED ON THE SIZE OF THE DECK ===== */
+.grid-small {
+  grid-template-columns: repeat(6, minmax(6rem, 8rem));
+}
+
+.grid-medium {
+  grid-template-columns: repeat(6, minmax(5rem, 7rem));
+}
+
+.grid-large {
+  grid-template-columns: repeat(10, minmax(3.5rem, 6rem));
+}

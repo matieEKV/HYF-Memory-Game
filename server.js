@@ -16,7 +16,7 @@ const knexInstance = knex({
   useNullAsDefault: true, // Omit warning in console
 });
 
-const boardSize = [8, 18, 27];
+const boardSize = [9, 20, 25];
 const decks = [1, 2, 3, 4, 5];
 
 function getRandomSize() {

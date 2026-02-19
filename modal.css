@@ -13,7 +13,7 @@ html {
     top 0.4s;
   animation-name: animate-window;
   animation-duration: 0.4s;
-  z-index: 15; /* has to be the top most position */
+  z-index: 15;
   padding: 10px;
   background-color: var(--primary-background);
   border: var(--border);
@@ -88,7 +88,7 @@ html {
 }
 
 .hidden-radio:checked + .card-content {
-  transform: scale(1.15);
+  transform: scale(1.25);
 }
 
 .stars div {
@@ -135,7 +135,7 @@ html {
     font-size: 16px;
   }
   .modal-container {
-    width: 60%;
-    height: 80%;
+    max-width: 60%;
+    max-height: 80%;
   }
 }

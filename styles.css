@@ -45,6 +45,7 @@ p {
 /* ===== BUTTON ===== */
 .actions {
   margin-bottom: 10px;
+  gap: 2rem;
 }
 
 /* ===== GRID (FIXED SIZE – ONE SCREEN) ===== */

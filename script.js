@@ -7,8 +7,10 @@ const overlay = document.querySelector(".overlay");
 const gridContainer = document.querySelector(".grid-container");
 const counterElement = document.querySelector(".counter");
 const boardSize = document.querySelector(".button-radio");
+const gameStart = document.querySelector(".modal-start");
+const gameEnd = document.querySelector(".hidden");
 
-let limit;
+let limit, time;
 
 // ===== DETERMINE THE VALUE OF BOARD SIZE =====
 switch (true) {
@@ -22,10 +24,10 @@ switch (true) {
     limit = 25;
     break;
 }
+
 // ===== CLOSE THE MODAL ONCE BUTTON IS CLICKED =====
 startGame?.addEventListener("click", () => {
-  modal.style.display = "none";
-  overlay.style.display = "none";
+  closeModal();
   fetchData();
 });
 
@@ -140,7 +142,10 @@ function checkForMatch() {
   //stop the timer once all the cards have been matched
   if (matchCounter === cards.length / 2) {
     isStarted = false;
-    stopTimer();
+    time = stopTimer();
+    const name = getUserName();
+    createMessageEl(name, timeDisplay.textContent, counter);
+    openModal(gameEnd, gameStart);
   }
 }
 
@@ -183,7 +188,28 @@ function restart() {
 function getUserName() {
   const name = document.querySelector("#user-name");
   if (!name.value) {
-    name = "Player 1";
+    name = "Player";
   }
   return name.value.trim();
+}
+
+function closeModal() {
+  modal.style.display = "none";
+  overlay.style.display = "none";
+}
+
+function openModal(open, close) {
+  modal.style.display = "block";
+  open.classList.remove("hidden");
+  close.classList.add("hidden");
+}
+
+function createMessageEl(name, time, turns) {
+  const element1 = document.createElement("p");
+  const element2 = document.createElement("p");
+  gameEnd.appendChild(element1);
+  gameEnd.appendChild(element2);
+
+  element1.textContent = `Congratulations ${name}!`;
+  element2.textContent = `You finished the game with ${turns} turns in ${time} `;
 }

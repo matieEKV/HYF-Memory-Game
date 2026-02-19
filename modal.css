@@ -5,7 +5,7 @@ html {
 
 .modal-container {
   width: 80%;
-  height: 60%;
+  height: auto;
   position: fixed;
   visibility: visible;
   transition:
@@ -17,11 +17,6 @@ html {
   padding: 10px;
   background-color: var(--primary-background);
   border: var(--border);
-}
-
-.modal {
-  height: 100%;
-  width: 100%;
 }
 
 .overlay {

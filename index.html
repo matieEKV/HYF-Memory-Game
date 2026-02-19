@@ -5,16 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./styles.css" />
-    <title>Memory Game</title>
+    <title>Memory Game MANIA</title>
   </head>
   <body>
-    <h1>Memory Game</h1>
+    <h1>Memory Game <span class="mania">MANIA</span></h1>
     <!-- overlay to dim the page under modal -->
     <div class="overlay"></div>
-    <!-- modal for starting the game -->
+
     <div class="modal-container center-div">
-      <div class="modal flex-column-center">
-        <h2>Memory Game</h2>
+      <!-- modal for starting the game -->
+      <div class="modal-start flex-column-center">
+        <h2>Memory Game <span class="mania">MANIA</span></h2>
         <label for="user-name"></label>
         <input
           class="user-name"
@@ -124,6 +125,14 @@
         </div>
         <button class="start-game button-large">START GAME</button>
       </div>
+      <div class="modal-end hidden flex-column-center">
+        <h2>Memory Game <span class="mania">MANIA</span></h2>
+        <!-- <p>CONGRATULATIONS <span class="name"></span>!</p>
+        <p>
+          You have finished the game in <span class="time"></span> seconds and
+          <span class="turns"> turns!</span>
+        </p> -->
+      </div>
     </div>
     <!-- timer -->
     <div class="timer-container flex-row-center">
@@ -135,6 +144,7 @@
 
     <div class="actions flex-row-center">
       <button class="button-large" onclick="restart()">Restart Game</button>
+      <button class="reopen-options button-large">Start New Game</button>
     </div>
 
     <script type="module" src="script.js"></script>

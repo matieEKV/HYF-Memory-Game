@@ -74,7 +74,7 @@ function fetchData() {
     gridContainer?.classList.add("grid-large");
   }
 
-  fetch(`http://localhost:3000/${deck}?limit=${selectedSize}`)
+  fetch(`https://hyf-memory-game.onrender.com/${deck}?limit=${selectedSize}`)
     .then((res) => res.json())
     .then((data) => {
       // duplicate cards to make pairs

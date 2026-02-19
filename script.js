@@ -5,6 +5,7 @@ import {
   closeModal,
   getUserName,
 } from "./js/modal.js";
+import { getRandomDeck, getRandomSize } from "./js/fallback.js";
 
 const timeDisplay = document.querySelector(".showTime");
 const startGame = document.querySelector(".start-game");
@@ -219,19 +220,4 @@ function restart() {
   createCards(originalDeck);
   resetStats();
   closeModal();
-}
-
-//FALLBACK OPTIONS
-
-const boardSizeFallback = [9, 20, 25];
-const decksFallback = [1, 2, 3, 4, 5];
-
-function getRandomSize() {
-  return boardSizeFallback[
-    Math.floor(Math.random() * boardSizeFallback.length)
-  ];
-}
-
-function getRandomDeck() {
-  return decksFallback[Math.floor(Math.random() * decksFallback.length)];
 }

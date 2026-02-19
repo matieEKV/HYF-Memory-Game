@@ -7,6 +7,11 @@ import {
 } from "./js/modal.js";
 import { getRandomDeck, getRandomSize } from "./js/fallback.js";
 
+//try to awake the server where the page is deployed
+fetch("https://hyf-memory-game.onrender.com/")
+  .then(() => console.log("Server waking up..."))
+  .catch((err) => console.error("Server wake-up failed", err));
+
 const timeDisplay = document.querySelector(".showTime");
 const startGame = document.querySelector(".start-game");
 const gridContainer = document.querySelector(".grid-container");

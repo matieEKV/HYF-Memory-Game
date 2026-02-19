@@ -1,6 +1,7 @@
 import express, { request } from "express";
 import knex from "knex";
 import cors from "cors";
+import path from "path";
 
 const app = express();
 

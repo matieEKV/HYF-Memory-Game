@@ -1,0 +1,75 @@
+@import "./variables.css";
+@import "./modal.css";
+@import "./utility.css";
+@import "./buttons-small.css";
+@import "./buttons-large.css";
+@import "./grid.css";
+@import "./card.css";
+
+/* ===== RESET ===== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.timer-container {
+  gap: 2rem;
+}
+
+p span {
+  margin-left: 3px;
+}
+
+/* ===== PAGE ===== */
+body {
+  min-height: 100vh;
+  background-color: var(--primary-background);
+  color: white;
+  font-family: Arial, sans-serif;
+  perspective: 1000px; /* 3D depth */
+}
+
+h1,
+h2 {
+  text-align: center;
+  font-size: 1.75rem;
+  margin: 12px 0;
+}
+
+p {
+  text-align: center;
+  font-size: 1rem;
+  margin: 8px 0;
+  font-weight: bold;
+}
+
+.mania {
+  background-image: linear-gradient(
+    to right,
+    rgb(126, 232, 126),
+    rgb(109, 39, 165)
+  );
+  color: transparent;
+  background-clip: text;
+}
+/* ===== BUTTON ===== */
+.actions {
+  margin-bottom: 1rem;
+  gap: 2rem;
+  position: relative;
+}
+
+/* Make sure cards shrink in size with smaller screen */
+@media (max-width: 660px) {
+  .grid-container {
+    grid-template-columns: repeat(auto-fit, minmax(5rem, 1fr));
+    gap: 4px;
+    width: 95%;
+  }
+
+  .card {
+    width: auto;
+    height: 6rem;
+  }
+}

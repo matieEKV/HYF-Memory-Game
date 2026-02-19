@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles/styles.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="./images/favicon.ico" />
+    <title>Memory Game MANIA</title>
+  </head>
+  <body>
+    <h1>Memory Game <span class="mania">MANIA</span></h1>
+    <!-- overlay to dim the page under modal -->
+    <div class="overlay"></div>
+
+    <div class="modal-container center-div">
+      <!-- modal for starting the game -->
+      <div class="modal-start flex-column-center">
+        <h2>Memory Game <span class="mania">MANIA</span></h2>
+        <label for="user-name"></label>
+        <input
+          class="user-name"
+          id="user-name"
+          type="text"
+          placeholder="Your name here"
+        />
+        <div class="options flex-column-center">
+          <h3>BOARD SIZE</h3>
+          <div class="button-container flex-row-center">
+            <label class="size-option">
+              <input
+                type="radio"
+                name="board_size"
+                value="9"
+                class="button-radio"
+              />
+              <span class="radio-button flex-row-center">SMALL</span>
+            </label>
+
+            <label class="size-option">
+              <input
+                type="radio"
+                name="board_size"
+                value="15"
+                class="button-radio"
+              />
+              <span class="radio-button flex-row-center">MEDIUM</span>
+            </label>
+            <label class="size-option">
+              <input
+                type="radio"
+                name="board_size"
+                value="25"
+                class="button-radio"
+              />
+              <span class="radio-button flex-row-center">LARGE</span>
+            </label>
+          </div>
+          <h3>CARDS AND DIFFICULTY</h3>
+          <div class="decks-container flex-row-center">
+            <label class="deck-choice">
+              <input
+                type="radio"
+                name="deck_selection"
+                value="5"
+                class="hidden-radio"
+              />
+              <div class="card-content">
+                <img src="images/animals-thumb.jpg" class="thumbnail" />
+                <div class="stars"><span class="span-stars">★☆☆☆☆</span></div>
+              </div>
+            </label>
+
+            <label class="deck-choice">
+              <input
+                type="radio"
+                name="deck_selection"
+                value="2"
+                class="hidden-radio"
+              />
+              <div class="card-content">
+                <img src="images/coffee.jpg" class="thumbnail" />
+                <div class="stars"><span class="span-stars">★★☆☆☆</span></div>
+              </div>
+            </label>
+
+            <label class="deck-choice">
+              <input
+                type="radio"
+                name="deck_selection"
+                value="3"
+                class="hidden-radio"
+              />
+              <div class="card-content">
+                <img src="images/movies-thumb.jpg" class="thumbnail" />
+                <div class="stars"><span class="span-stars">★★★☆☆</span></div>
+              </div>
+            </label>
+
+            <label class="deck-choice">
+              <input
+                type="radio"
+                name="deck_selection"
+                value="1"
+                class="hidden-radio"
+              />
+              <div class="card-content">
+                <img src="images/pattern-thumb.jpg" class="thumbnail" />
+                <div class="stars"><span class="span-stars">★★★★☆</span></div>
+              </div>
+            </label>
+
+            <label class="deck-choice">
+              <input
+                type="radio"
+                name="deck_selection"
+                value="4"
+                class="hidden-radio"
+              />
+              <div class="card-content">
+                <img src="images/abstract-thumb.jpg" class="thumbnail" />
+                <div class="stars"><span class="span-stars">★★★★★</span></div>
+              </div>
+            </label>
+          </div>
+        </div>
+        <button class="start-game button-large">START GAME</button>
+      </div>
+      <div class="modal-end hidden flex-column-center">
+        <span class="message1"></span>
+        <span class="message2"></span>
+      </div>
+    </div>
+    <!-- timer -->
+    <div class="timer-container flex-row-center">
+      <p>Time: <span class="showTime">0 : 0</span></p>
+      <p>Counter: <span class="counter">0</span></p>
+    </div>
+    <!-- game board -->
+    <div class="grid-container"></div>
+
+    <div class="actions flex-row-center">
+      <button class="button-large restart">Restart Game</button>
+      <button class="reopen-options button-large">Start New Game</button>
+    </div>
+
+    <script type="module" src="script.js"></script>
+  </body>
+</html>

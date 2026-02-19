@@ -1,9 +1,13 @@
-import { startTimer, stopTimer, resetTimer } from "./timer.js";
+import { startTimer, stopTimer, resetTimer } from "./js/timer.js";
+import {
+  openModal,
+  createMessageEl,
+  closeModal,
+  getUserName,
+} from "./js/modal.js";
 
 const timeDisplay = document.querySelector(".showTime");
-const modal = document.querySelector(".modal-container");
 const startGame = document.querySelector(".start-game");
-const overlay = document.querySelector(".overlay");
 const gridContainer = document.querySelector(".grid-container");
 const counterElement = document.querySelector(".counter");
 const gameStart = document.querySelector(".modal-start");
@@ -27,7 +31,6 @@ restartButton?.addEventListener("click", () => {
 startNewGame?.addEventListener("click", () => {
   openModal(gameStart, gameEnd);
   gridContainer.innerHTML = "";
-  buttons.style.zIndex = "1";
   resetStats();
 });
 
@@ -170,7 +173,7 @@ function checkForMatch() {
     stopTimer();
     const name = getUserName();
     createMessageEl(name, timeDisplay.textContent, counter);
-    openModal(gameEnd, gameStart);
+    openModal(gameEnd, gameStart, true);
   }
 }
 
@@ -216,39 +219,6 @@ function restart() {
   createCards(originalDeck);
   resetStats();
   closeModal();
-}
-
-// ===== GET USER NAME =====
-function getUserName() {
-  let name = document.querySelector("#user-name");
-  if (!name.value) {
-    name = "Player";
-    return name;
-  }
-  return name.value.trim();
-}
-
-function closeModal() {
-  modal.style.display = "none";
-  overlay.style.display = "none";
-}
-
-function openModal(open, close) {
-  modal.style.display = "block";
-  overlay.style.display = "block";
-  open.classList.remove("hidden");
-  close.classList.add("hidden");
-  if (open === gameEnd) {
-    buttons.style.zIndex = "20";
-  }
-}
-
-function createMessageEl(name, time, turns) {
-  const message1 = document.querySelector(".message1");
-  const message2 = document.querySelector(".message2");
-
-  message1.textContent = `Congratulations ${name}!`;
-  message2.textContent = `You finished the game with ${turns} turns in ${time} `;
 }
 
 //FALLBACK OPTIONS

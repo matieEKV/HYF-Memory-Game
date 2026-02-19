@@ -59,17 +59,3 @@ p {
   gap: 2rem;
   position: relative;
 }
-
-/* Make sure cards shrink in size with smaller screen */
-@media (max-width: 660px) {
-  .grid-container {
-    grid-template-columns: repeat(auto-fit, minmax(5rem, 1fr));
-    gap: 4px;
-    width: 95%;
-  }
-
-  .card {
-    width: auto;
-    height: 6rem;
-  }
-}

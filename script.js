@@ -65,7 +65,7 @@ function fetchData() {
   if (!selectedSize) {
     selectedSize = getRandomSize();
   }
-
+  gridContainer.classList.remove("grid-small", "grid-medium", "grid-large");
   if (selectedSize === "9") {
     gridContainer?.classList.add("grid-small");
   } else if (selectedSize === "20") {
@@ -205,7 +205,8 @@ function anotherTurn() {
 }
 
 function resetStats() {
-  timeDisplay.textContent = "0 : 0";
+  firstCard = null;
+  timeDisplay.textContent = "0:0";
   resetTimer();
   isStarted = false;
   stopTimer();

@@ -3,7 +3,14 @@ import knex from "knex";
 import cors from "cors";
 
 const app = express();
-const port = 3000;
+
+//added a different port for Render deployment
+const port = process.env.PORT || 3000;
+
+app.listen(port, "0.0.0.0", () => {
+  console.log(`Server is running on port ${port}`);
+});
+
 const querySQL =
   "SELECT * FROM Cards WHERE deck_id = ? ORDER BY RANDOM() LIMIT ?";
 
@@ -11,7 +18,7 @@ const querySQL =
 const knexInstance = knex({
   client: "sqlite3",
   connection: {
-    filename: "./card_decks.db",
+    filename: path.resolve(process.cwd(), "card_decks.db"),
   },
   useNullAsDefault: true, // Omit warning in console
 });

@@ -41,7 +41,6 @@ html {
   border-bottom: var(--border);
   height: 2rem;
   width: 40%;
-  cursor: pointer;
   color: white;
   font-size: 1.3rem;
   font-weight: bold;

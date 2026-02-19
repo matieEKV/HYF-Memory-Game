@@ -68,13 +68,13 @@ function fetchData() {
   gridContainer.classList.remove("grid-small", "grid-medium", "grid-large");
   if (selectedSize === "9") {
     gridContainer?.classList.add("grid-small");
-  } else if (selectedSize === "20") {
+  } else if (selectedSize === "15") {
     gridContainer?.classList.add("grid-medium");
   } else {
     gridContainer?.classList.add("grid-large");
   }
 
-  fetch(`https://hyf-memory-game.onrender.com/${deck}?limit=${selectedSize}`)
+  fetch(`http://localhost:3000/${deck}?limit=${selectedSize}`)
     .then((res) => res.json())
     .then((data) => {
       // duplicate cards to make pairs

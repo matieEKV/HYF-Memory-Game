@@ -3,6 +3,11 @@ import knex from "knex";
 import cors from "cors";
 import path from "path";
 
+//try to awake the server where the page is deployed
+fetch("https://hyf-memory-game.onrender.com/")
+  .then(() => console.log("Server waking up..."))
+  .catch((err) => console.error("Server wake-up failed", err));
+
 const app = express();
 
 //added a different port for Render deployment

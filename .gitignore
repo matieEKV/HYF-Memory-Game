@@ -1,1 +1,4 @@
+# 🟡 [important] Consider also ignoring: .DS_Store, *.db, .env
+# .DS_Store is a macOS artifact that adds noise to commits.
+# .env for any future environment variables (secrets, API keys).
 node_modules

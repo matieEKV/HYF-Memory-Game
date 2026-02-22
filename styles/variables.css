@@ -1,3 +1,4 @@
+/* 🟡 Consider adding more vars for the colors hardcoded elsewhere (#1e2e53, #1fb155, etc.) to make theming and consistency easier. */
 :root {
   --primary-background: #0f172a;
   --border: 2px solid rgb(86, 242, 86);

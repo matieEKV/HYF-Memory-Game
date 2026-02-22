@@ -1,3 +1,39 @@
+/*
+  🟡 [important] utility.css is a great place to put reusable utility classes that can be used across your entire app. 
+I think you can add some utility classes for common layout patterns, spacing, typography, and other frequently used styles.
+Here are some suggestions for utility classes you might want to add:
+
+
+  1. Flexbox utilities:
+     - .flex-row: display: flex; flex-direction: row;
+     - .flex-column: display: flex; flex-direction: column;
+     - .justify-center: justify-content: center;
+     - .align-center: align-items: center;
+     - .flex-wrap: flex-wrap: wrap; 
+
+  2. Spacing utilities:
+     - .m-1: margin: 0.25rem;
+     - .m-2: margin: 0.5rem;
+    - .m-3: margin: 1rem;
+
+
+  3. Typography utilities:
+     - .text-center: text-align: center;
+     - .text-bold: font-weight: bold;
+     - .text-uppercase: text-transform: uppercase;
+
+  4. Display utilities:
+     - .hidden: display: none;
+     - .block: display: block;  
+     
+  5. Positioning utilities:
+      - .absolute: position: absolute;
+
+  6. Size utilities:
+      - .w-full: width: 100%;
+      - .h-full: height: 100%;
+*/
+
 .center-div {
   top: 50%;
   left: 50%;

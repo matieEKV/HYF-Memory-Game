@@ -1,4 +1,9 @@
 /* ===== RESPONSIVENESS FOR MOBILE ===== */
+/* 🟡 [important] Setting html font-size to 10px overrides the user's browser font-size
+   preferences, which is an accessibility concern. The standard technique is
+   font-size: 62.5% (which equals 10px at default settings but respects user prefs). */
+   
+/* 🔴 [blocking] this rule should not be in this file, which is meant for modal-specific styles. Consider moving it to a global styles file like utility.css or base.css. */
 html {
   font-size: 10px;
 }
@@ -24,6 +29,9 @@ html {
   display: block;
   width: 100%;
   height: 100%;
+  /*
+  🟢 tip: you can unse inset: 0; to set top, left, right, and bottom to 0 in one line instead of four.
+  */
   top: 0;
   left: 0;
   right: 0;
@@ -89,7 +97,8 @@ html {
 .hidden-radio:checked + .card-content {
   transform: scale(1.25);
 }
-
+/* 🟡 [important] for font styles especially, try to create a separate file for global font styles 
+    for example typography.css, and use it across all components for consistency. This way you can avoid duplication and ensure a consistent look and feel across the app. */
 .stars div {
   font-size: 0.8rem;
 }
@@ -115,7 +124,7 @@ html {
 .hidden-radio:checked + .card-content .stars {
   opacity: 1;
 }
-
+/* 🟡 [important] you can create a keyframes.css file where you store all your global keyframes */
 /* animate appearing window */
 @keyframes animate-window {
   from {

@@ -6,6 +6,8 @@
 @import "./grid.css";
 @import "./card.css";
 
+/* 🔴 [blocking] this file contains button styles and page styles, since you split styles into multiple files, consider creating separate files, and move the page and button styles there*/
+*/
 /* ===== RESET ===== */
 * {
   box-sizing: border-box;

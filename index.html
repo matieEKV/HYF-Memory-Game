@@ -17,6 +17,8 @@
       <!-- modal for starting the game -->
       <div class="modal-start flex-column-center">
         <h2>Memory Game <span class="mania">MANIA</span></h2>
+        <!-- 🟡 [important] Empty label — screen readers won't know what this input is for.
+             Add text content like "Enter your name" or use aria-label on the input. -->
         <label for="user-name"></label>
         <input
           class="user-name"
@@ -57,6 +59,11 @@
             </label>
           </div>
           <h3>CARDS AND DIFFICULTY</h3>
+          <!-- 🟡 [important] All thumbnail images below are missing alt attributes — hurts
+               accessibility. Add descriptive alt text like alt="Animals deck". -->
+          <!-- 🎉 [praise] The radio button pattern using <label> wrapping hidden
+               <input type="radio"> is a well-known accessibility pattern.
+               Custom-styled radios that still work with keyboard navigation! -->
           <div class="decks-container flex-row-center">
             <label class="deck-choice">
               <input
@@ -126,6 +133,8 @@
         </div>
         <button class="start-game button-large">START GAME</button>
       </div>
+      <!-- 🟢 [nit] The end-game modal only has <span> elements. Using <h2> for
+           congratulations and <p> for stats would be more semantic HTML. -->
       <div class="modal-end hidden flex-column-center">
         <span class="message1"></span>
         <span class="message2"></span>

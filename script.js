@@ -6,6 +6,7 @@ import {
   getUserName,
 } from "./js/modal.js";
 import { getRandomDeck, getRandomSize } from "./js/fallback.js";
+// 🎉 good use of modules to keep code organized and separate concerns. Nice!
 
 const timeDisplay = document.querySelector(".showTime");
 const startGame = document.querySelector(".start-game");
@@ -34,7 +35,9 @@ startNewGame?.addEventListener("click", () => {
   resetStats();
 });
 
-// ===== GAME STATE =====
+// 🟡 [important] Clean game state management with well-named variables. 
+// However an object would have helped making 
+// the state more explicit and easier to manage
 let cards = [];
 let firstCard = null;
 let secondCard = null;
@@ -49,7 +52,6 @@ counterElement.textContent = counter;
 
 // ===== GET DATA FROM DATABASE =====
 function fetchData() {
-  //get the value of the clicked card
 
   let selectedSize = document.querySelector(
     "input[name=board_size]:checked",
@@ -59,6 +61,9 @@ function fetchData() {
   )?.value;
 
   //select the size of the grid based on the number of cards
+  // 🟡 [important] from an UX perspective you should leave a default selection, not giving a random difficulty. Otherwise you could 
+  // end up with a very hard board without knowing why. Consider adding a default "medium" selection in the HTML and removing the random fallback. 
+  // (or state it clearly in the UI that if no selection is made, a random one will be chosen for you)
   if (!deck) {
     deck = getRandomDeck();
   }
@@ -74,6 +79,7 @@ function fetchData() {
     gridContainer?.classList.add("grid-large");
   }
 
+  // 🔴 [blocking] No .catch() on fetch
   fetch(`https://hyf-memory-game.onrender.com/${deck}?limit=${selectedSize}`)
     .then((res) => res.json())
     .then((data) => {
@@ -85,7 +91,7 @@ function fetchData() {
     });
 }
 
-// ===== ADD EVENT LISTENER TO THE CONTAINER AND THE CLICKED CARD =====
+// 🎉  Excellent!
 gridContainer?.addEventListener("click", (event) => {
   const clickedCard = event.target.closest(".card");
 
@@ -113,7 +119,8 @@ function createCards(cards) {
   }
 }
 
-// ===== SHUFFLE CARDS =====
+// 🟢 Modern JS can simplify the swap to a one-liner:
+// [cards[currentIndex], cards[randomIndex]] = [cards[randomIndex], cards[currentIndex]];
 function shuffleCards(cards) {
   let currentIndex = cards.length;
   let randomIndex;
@@ -180,6 +187,8 @@ function checkForMatch() {
 }
 
 // ===== DISABLE MATCHED CARDS =====
+// 🟡 visibility: "hidden" leaves empty gaps in the grid. Consider using
+// opacity: 0 with pointer-events: "none" instead keeps the layout stable while hiding.
 function disableCards() {
   setTimeout(() => {
     firstCard.style.visibility = "hidden";

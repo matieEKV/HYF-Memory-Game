@@ -52,7 +52,7 @@
 .card.flipped {
   transform: rotateY(180deg);
 }
-
+/* 🟡 [important] you can create a keyframes.css file where you store all your global keyframes */
 /* ===== FADE IN ANIMATION ===== */
 @keyframes fadeInOpacity {
   0% {

@@ -1,11 +1,11 @@
-import { startTimer, stopTimer, resetTimer } from "./js/timer.js";
+import { startTimer, stopTimer, resetTimer } from "./timer.js";
 import {
   openModal,
   createMessageEl,
   closeModal,
   getUserName,
-} from "./js/modal.js";
-import { getRandomDeck, getRandomSize } from "./js/fallback.js";
+} from "./modal.js";
+import { getRandomDeck, getRandomSize } from "./fallback.js";
 
 // ===== GAME STATE OBJECT=====
 const gameState = {

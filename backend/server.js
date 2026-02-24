@@ -2,6 +2,8 @@ import express, { request } from "express";
 import knex from "knex";
 import cors from "cors";
 import path from "path";
+import { DECK_IDS } from "../constants.js";
+import { BOARD_SIZES } from "../constants.js";
 
 //try to awake the server where the page is deployed
 fetch("https://hyf-memory-game.onrender.com/")
@@ -24,13 +26,10 @@ const querySQL =
 const knexInstance = knex({
   client: "sqlite3",
   connection: {
-    filename: path.resolve(process.cwd(), "card_decks.db"),
+    filename: path.resolve(process.cwd(), "backend/card_decks.db"),
   },
   useNullAsDefault: true, // Omit warning in console
 });
-
-const boardSize = [9, 15, 25];
-const decks = [1, 2, 3, 4, 5];
 
 function getRandomElement(array) {
   return array[Math.floor(Math.random() * array.length)];
@@ -41,8 +40,8 @@ app.use(cors());
 
 app.get("/", async (req, res) => {
   try {
-    const limit = getRandomElement(boardSize);
-    const deck_id = getRandomElement(decks);
+    const limit = getRandomElement(BOARD_SIZES);
+    const deck_id = getRandomElement(DECK_IDS);
     const rows = await knexInstance.raw(querySQL, [deck_id, limit]);
 
     res.json(rows);
@@ -54,8 +53,8 @@ app.get("/", async (req, res) => {
 
 app.get("/:deck_id", async (req, res) => {
   try {
-    const limit = parseInt(req.query.limit) || getRandomElement(boardSize);
-    const deck_id = parseInt(req.params.deck_id) || getRandomElement(decks);
+    const limit = parseInt(req.query.limit) || getRandomElement(BOARD_SIZES);
+    const deck_id = parseInt(req.params.deck_id) || getRandomElement(DECK_IDS);
     const rows = await knexInstance.raw(querySQL, [deck_id, limit]);
     res.json(rows);
   } catch (error) {

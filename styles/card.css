@@ -1,3 +1,5 @@
+@import "./keyframes.css";
+
 /* ===== CARD ===== */
 .card {
   width: 100%;
@@ -51,14 +53,4 @@
 /* ===== FLIP EFFECT ===== */
 .card.flipped {
   transform: rotateY(180deg);
-}
-
-/* ===== FADE IN ANIMATION ===== */
-@keyframes fadeInOpacity {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
 }

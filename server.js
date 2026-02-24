@@ -32,29 +32,34 @@ const knexInstance = knex({
 const boardSize = [9, 20, 25];
 const decks = [1, 2, 3, 4, 5];
 
-function getRandomSize() {
-  return boardSize[Math.floor(Math.random() * boardSize.length)];
-}
-
-function getRandomDeck() {
-  return decks[Math.floor(Math.random() * decks.length)];
+function getRandomElement(array) {
+  return array[Math.floor(Math.random() * array.length)];
 }
 
 app.use(express.json());
 app.use(cors());
 
 app.get("/", async (req, res) => {
-  const limit = getRandomSize();
-  const deck_id = getRandomDeck();
-  const rows = await knexInstance.raw(querySQL, [deck_id, limit]);
-  res.json(rows);
+  try {
+    const limit = getRandomSize();
+    const deck_id = getRandomDeck();
+    const rows = await knexInstance.raw(querySQL, [deck_id, limit]);
+
+    res.json(rows);
+  } catch (error) {
+    console.error("Database query failed:", error);
+    res.status(500).json({ error: "Database error" });
+  }
 });
 
 app.get("/:deck_id", async (req, res) => {
-  const limit = req.query.limit || getRandomSize();
-  const deck_id = parseInt(req.params.deck_id) || getRandomDeck();
-  const rows = await knexInstance.raw(querySQL, [deck_id, limit]);
-  res.json(rows);
+  try {
+    const limit = req.query.limit || getRandomSize();
+    const deck_id = parseInt(req.params.deck_id) || getRandomDeck();
+    const rows = await knexInstance.raw(querySQL, [deck_id, limit]);
+    res.json(rows);
+  } catch (error) {
+    console.error("Database query failed:", error);
+    res.status(500).json({ error: "Database error" });
+  }
 });
-
-app.listen(port);

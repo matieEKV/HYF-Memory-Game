@@ -54,7 +54,7 @@ app.get("/", async (req, res) => {
 
 app.get("/:deck_id", async (req, res) => {
   try {
-    const limit = req.query.limit || getRandomElement(boardSize);
+    const limit = parseInt(req.query.limit) || getRandomElement(boardSize);
     const deck_id = parseInt(req.params.deck_id) || getRandomElement(decks);
     const rows = await knexInstance.raw(querySQL, [deck_id, limit]);
     res.json(rows);

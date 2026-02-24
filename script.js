@@ -186,8 +186,10 @@ function checkForMatch() {
 // ===== DISABLE MATCHED CARDS =====
 function disableCards() {
   setTimeout(() => {
-    gameState.firstCard.style.visibility = "hidden";
-    gameState.secondCard.style.visibility = "hidden";
+    gameState.firstCard.style.opacity = "0";
+    gameState.firstCard.style.pointerEvents = "none";
+    gameState.secondCard.style.opacity = "0";
+    gameState.secondCard.style.pointerEvents = "none";
     anotherTurn();
   }, 1000);
 }

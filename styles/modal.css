@@ -35,16 +35,12 @@
   border: none;
   border-bottom: var(--border);
   height: 2rem;
-  font-size: 1.3rem;
-  font-weight: bold;
   width: 40%;
   color: white;
   text-align: center;
 }
 
 .user-name::placeholder {
-  font-size: 1.3rem;
-  font-weight: bold;
   color: white;
   text-align: center;
 }
@@ -85,14 +81,6 @@
   transform: scale(1.25);
 }
 
-.stars div {
-  font-size: 0.8rem;
-}
-
-.span-stars {
-  font-size: 0.8rem;
-}
-
 .decks-container {
   margin-top: 1rem;
   gap: 1rem;
@@ -112,9 +100,6 @@
 }
 
 @media (min-width: 880px) {
-  html {
-    font-size: 16px;
-  }
   .modal-container {
     max-width: 60%;
     max-height: 80%;

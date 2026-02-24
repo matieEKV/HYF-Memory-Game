@@ -9,10 +9,10 @@
 }
 
 .button-large:hover {
-  background-color: #1fb155;
+  background-color: var(--button-large-hover);
 }
 
 .button-large:active {
-  background-color: #3bf57f;
+  background-color: var(--button-large-active);
   color: black;
 }

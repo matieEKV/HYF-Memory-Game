@@ -4,4 +4,7 @@
   --button-color: #22c55e;
   --green-start: rgb(126, 232, 126);
   --purple-end: rgb(109, 39, 165);
+  --button-small-hover: #1e2e53;
+  --button-large-hover: #1fb155;
+  --button-large-active: #3bf57f;
 }

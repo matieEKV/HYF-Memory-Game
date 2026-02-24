@@ -4,22 +4,18 @@ const buttons = document.querySelector(".actions");
 
 // ===== GET USER NAME =====
 function getUserName() {
-  let name = document.querySelector("#user-name");
-  if (!name.value) {
-    name = "Player";
-    return name;
-  }
-  return name.value.trim();
+  const input = document.querySelector("#user-name");
+  return input.value ? input.value.trim() : "Player";
 }
 
 function closeModal() {
-  modal.style.display = "none";
-  overlay.style.display = "none";
+  modal.classList.add("hidden");
+  overlay.classList.add("hidden");
 }
 
 function openModal(open, close, isGameWon = false) {
-  modal.style.display = "block";
-  overlay.style.display = "block";
+  modal.classList.remove("hidden");
+  overlay.classList.remove("hidden");
   open.classList.remove("hidden");
   close.classList.add("hidden");
   if (isGameWon) {
@@ -34,7 +30,7 @@ function createMessageEl(name, time, turns) {
   const message2 = document.querySelector(".message2");
 
   message1.textContent = `Congratulations ${name}!`;
-  message2.textContent = `You finished the game with ${turns} turns in ${time} `;
+  message2.textContent = `You finished the game with ${turns} turns in ${time}`;
 }
 
 export { openModal, createMessageEl, closeModal, getUserName };

@@ -119,15 +119,15 @@ function createCards(cards) {
 function shuffleCards(cards) {
   let currentIndex = cards.length;
   let randomIndex;
-  let temporaryValue;
 
   while (currentIndex !== 0) {
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex--;
 
-    temporaryValue = cards[currentIndex];
-    cards[currentIndex] = cards[randomIndex];
-    cards[randomIndex] = temporaryValue;
+    [cards[currentIndex], cards[randomIndex]] = [
+      cards[randomIndex],
+      cards[currentIndex],
+    ];
   }
 }
 

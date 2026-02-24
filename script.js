@@ -84,6 +84,13 @@ function fetchData() {
       shuffleCards(gameState.cards);
       gameState.originalDeck = [...gameState.cards];
       createCards(gameState.cards);
+    })
+    .catch((error) => {
+      console.error("Could not fetch the cards:", error);
+      alert(
+        "Oops! We couldn't load the cards. Please check your connection or try again later.",
+      );
+      openModal(gameStart, gameEnd);
     });
 }
 

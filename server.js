@@ -29,7 +29,7 @@ const knexInstance = knex({
   useNullAsDefault: true, // Omit warning in console
 });
 
-const boardSize = [9, 20, 25];
+const boardSize = [9, 15, 25];
 const decks = [1, 2, 3, 4, 5];
 
 function getRandomElement(array) {
@@ -41,8 +41,8 @@ app.use(cors());
 
 app.get("/", async (req, res) => {
   try {
-    const limit = getRandomSize();
-    const deck_id = getRandomDeck();
+    const limit = getRandomElement(boardSize);
+    const deck_id = getRandomElement(decks);
     const rows = await knexInstance.raw(querySQL, [deck_id, limit]);
 
     res.json(rows);
@@ -54,8 +54,8 @@ app.get("/", async (req, res) => {
 
 app.get("/:deck_id", async (req, res) => {
   try {
-    const limit = req.query.limit || getRandomSize();
-    const deck_id = parseInt(req.params.deck_id) || getRandomDeck();
+    const limit = req.query.limit || getRandomElement(boardSize);
+    const deck_id = parseInt(req.params.deck_id) || getRandomElement(decks);
     const rows = await knexInstance.raw(querySQL, [deck_id, limit]);
     res.json(rows);
   } catch (error) {

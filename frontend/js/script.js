@@ -6,18 +6,7 @@ import {
   getUserName,
 } from "./modal.js";
 import { getRandomDeck, getRandomSize } from "./fallback.js";
-
-// ===== GAME STATE OBJECT=====
-const gameState = {
-  cards: [],
-  firstCard: null,
-  secondCard: null,
-  lockBoard: false,
-  counter: 0,
-  matchCounter: 0,
-  isStarted: false,
-  originalDeck: [],
-};
+import { gameState } from "./game-state.js";
 
 const timeDisplay = document.querySelector(".showTime");
 const startGame = document.querySelector(".start-game");

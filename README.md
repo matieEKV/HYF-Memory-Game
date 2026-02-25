@@ -46,7 +46,7 @@ Start the Backend (Server)
 Bash
 `node server.js`
 
-The server will start on http://localhost:8080 (or your configured port).
+The server will start on http://localhost:3000 (or your configured port).
 
 Start the Frontend
 Since the frontend uses ES Modules (import/export), you cannot open index.html directly from the file system.
@@ -54,7 +54,7 @@ You have two options for that:
 
 1. VS Code: Right-click index.html inside the frontend/ folder and select "Open with Live Server".
 
-2. Express Static: If your server.js is configured to serve static files, just navigate to http://localhost:8080 in your browser.
+2. Express Static: If your server.js is configured to serve static files, just navigate to http://localhost:3000 in your browser.
 
 🛠️ Tech Stack
 Frontend: HTML5, CSS3 (Modular Grid, Variables), Vanilla JavaScript (ES6+).

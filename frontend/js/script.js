@@ -59,11 +59,17 @@ function fetchData() {
   gridContainer.classList.remove("grid-small", "grid-medium", "grid-large");
   if (selectedSize === "9") {
     gridContainer?.classList.add("grid-small");
+    gameState.basePoints = 100;
   } else if (selectedSize === "15") {
     gridContainer?.classList.add("grid-medium");
+    gameState.basePoints = 150;
   } else {
     gridContainer?.classList.add("grid-large");
+    gameState.basePoints = 200;
   }
+
+  gameState.selectedBoardSize = parseInt(selectedSize);
+  gameState.selectedDeck = deck;
 
   fetch(`https://hyf-memory-game.onrender.com/${deck}?limit=${selectedSize}`)
     .then((res) => res.json())
@@ -174,7 +180,14 @@ function checkForMatch() {
     gameState.isStarted = false;
     stopTimer();
     const name = getUserName();
-    createMessageEl(name, timeDisplay.textContent, gameState.counter);
+    getTime(timeDisplay.textContent);
+    createMessageEl(
+      name,
+      gameState.minutesPassed,
+      gameState.secondsPassed,
+      gameState.counter,
+    );
+    console.log(getScore());
     openModal(gameEnd, gameStart, true);
   }
 }
@@ -227,4 +240,34 @@ function restart() {
   createCards(gameState.originalDeck);
   resetStats();
   closeModal();
+}
+
+// ===== SCORES =====
+
+function getScore() {
+  const difficulty = difficultyMultiplier(gameState.selectedDeck);
+  const totalSeconds = gameState.minutesPassed * 60 + gameState.secondsPassed;
+  return (
+    gameState.basePoints * difficulty -
+    (gameState.counter - gameState.matchCounter) * 10 -
+    Math.max(0, totalSeconds * 5)
+  );
+}
+
+// get the multiplier of difficulty based on selected deck
+function difficultyMultiplier(deck) {
+  const difficultyPoints = {
+    1: 1.5,
+    2: 1.1,
+    3: 1.25,
+    4: 1.8,
+    5: 1.0,
+  };
+  return difficultyPoints[deck];
+}
+
+function getTime(timeString) {
+  const array = timeString.split(":");
+  gameState.minutesPassed = Number(array[0]);
+  gameState.secondsPassed = Number(array[1]);
 }

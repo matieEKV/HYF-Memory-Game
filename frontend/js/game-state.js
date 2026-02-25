@@ -8,4 +8,9 @@ export const gameState = {
   matchCounter: 0,
   isStarted: false,
   originalDeck: [],
+  selectedBoardSize: 0,
+  selectedDeck: null,
+  basePoints: 0,
+  secondsPassed: 0,
+  minutesPassed: 0,
 };

@@ -11,7 +11,7 @@ function startTimer(onTick) {
         seconds = 0;
       }
       if (onTick) {
-        onTick(`${minutes} : ${seconds}`);
+        onTick(`${minutes}:${seconds}`);
       }
     }, 1000);
   }

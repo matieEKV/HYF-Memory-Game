@@ -25,12 +25,16 @@ function openModal(open, close, isGameWon = false) {
   }
 }
 
-function createMessageEl(name, time, turns) {
+function createMessageEl(name, minutes, seconds, turns) {
   const message1 = document.querySelector(".message1");
   const message2 = document.querySelector(".message2");
 
   message1.textContent = `Congratulations ${name}!`;
-  message2.textContent = `You finished the game with ${turns} turns in ${time}`;
+  if (minutes === 0) {
+    message2.textContent = `You finished the game with ${turns} turns in ${seconds} seconds`;
+  } else {
+    message2.textContent = `You finished the game with ${turns} turns in ${minutes} minutes and ${seconds} seconds`;
+  }
 }
 
 export { openModal, createMessageEl, closeModal, getUserName };

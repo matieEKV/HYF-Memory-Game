@@ -1,3 +1,5 @@
+import { gameState } from "./game-state";
+
 const overlay = document.querySelector(".overlay");
 const modal = document.querySelector(".modal-container");
 const buttons = document.querySelector(".actions");
@@ -31,9 +33,11 @@ function createMessageEl(name, minutes, seconds, turns) {
 
   message1.textContent = `Congratulations ${name}!`;
   if (minutes === 0) {
-    message2.textContent = `You finished the game with ${turns} turns in ${seconds} seconds`;
+    message2.textContent = `You finished the game with ${turns} turns in ${seconds} seconds. Your score ${gameState.totalScore}`;
+  } else if (minutes > 1) {
+    message2.textContent = `You finished the game with ${turns} turns in ${minutes} minutes and ${seconds} seconds. Your score ${gameState.totalScore}`;
   } else {
-    message2.textContent = `You finished the game with ${turns} turns in ${minutes} minutes and ${seconds} seconds`;
+    message2.textContent = `You finished the game with ${turns} turns in ${minutes} minute and ${seconds} seconds. Your score ${gameState.totalScore}`;
   }
 }
 

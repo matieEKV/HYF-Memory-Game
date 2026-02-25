@@ -187,7 +187,6 @@ function checkForMatch() {
       gameState.secondsPassed,
       gameState.counter,
     );
-    console.log(getScore());
     openModal(gameEnd, gameStart, true);
   }
 }
@@ -263,7 +262,10 @@ function getScore() {
   const finalScore = totalIncome - penalties;
 
   // Safety Net, so points to go lower than 1
-  return Math.max(gameState.matchCounter, Math.floor(finalScore));
+  gameState.totalScore = Math.max(
+    gameState.matchCounter,
+    Math.floor(finalScore),
+  );
 }
 
 // get the multiplier of difficulty based on selected deck

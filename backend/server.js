@@ -62,3 +62,33 @@ app.get("/:deck_id", async (req, res) => {
     res.status(500).json({ error: "Database error" });
   }
 });
+
+//post the scores
+
+app.post("/scoreboard", async (req, res) => {
+  try {
+    const { user_id, total_score, board_size, difficulty } = req.body;
+
+    if (
+      !user_id ||
+      !total_score ||
+      !BOARD_SIZES.includes(board_size) ||
+      !DECK_IDS.includes(difficulty)
+    ) {
+      return res.status(400).json({
+        error: "missing request body",
+      });
+    }
+
+    await knexInstance("ScoreBoard").insert({
+      user_id,
+      total_score,
+      board_size,
+      difficulty,
+    });
+
+    res.status(201).json({ message: "Score saved successfully" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});

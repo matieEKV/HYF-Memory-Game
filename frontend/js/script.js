@@ -7,6 +7,7 @@ import {
 } from "./modal.js";
 import { getRandomDeck, getRandomSize } from "./fallback.js";
 import { gameState } from "./game-state.js";
+import { storeUserScore } from "./scoreBoard.js";
 
 const timeDisplay = document.querySelector(".showTime");
 const startGame = document.querySelector(".start-game");
@@ -184,6 +185,7 @@ function checkForMatch() {
     getTime(timeDisplay.textContent);
     createMessageEl();
     openModal(gameEnd, gameStart, true);
+    storeUserScore();
   }
 }
 

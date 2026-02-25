@@ -245,25 +245,37 @@ function restart() {
 // ===== SCORES =====
 
 function getScore() {
+  const pointsPerMatch = 50;
+  const matchIncome = gameState.matchCounter * pointsPerMatch;
+
   const difficulty = difficultyMultiplier(gameState.selectedDeck);
+  const totalIncome = matchIncome * difficulty;
+
   const totalSeconds = gameState.minutesPassed * 60 + gameState.secondsPassed;
-  return (
-    gameState.basePoints * difficulty -
-    (gameState.counter - gameState.matchCounter) * 10 -
-    Math.max(0, totalSeconds * 5)
-  );
+
+  const mistakes = gameState.counter - gameState.matchCounter;
+
+  const mistakeCost = 10;
+  const timeCost = 2;
+
+  const penalties = mistakes * mistakeCost + totalSeconds * timeCost;
+
+  const finalScore = totalIncome - penalties;
+
+  // Safety Net, so points to go lower than 1
+  return Math.max(gameState.matchCounter, Math.floor(finalScore));
 }
 
 // get the multiplier of difficulty based on selected deck
 function difficultyMultiplier(deck) {
   const difficultyPoints = {
     1: 1.5,
-    2: 1.1,
-    3: 1.25,
-    4: 1.8,
+    2: 1.2,
+    3: 1.3,
+    4: 2.0,
     5: 1.0,
   };
-  return difficultyPoints[deck];
+  return difficultyPoints[deck] || 1.0;
 }
 
 function getTime(timeString) {

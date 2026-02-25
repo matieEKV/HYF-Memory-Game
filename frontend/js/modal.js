@@ -1,4 +1,4 @@
-import { gameState } from "./game-state";
+import { gameState } from "./game-state.js";
 
 const overlay = document.querySelector(".overlay");
 const modal = document.querySelector(".modal-container");
@@ -27,17 +27,17 @@ function openModal(open, close, isGameWon = false) {
   }
 }
 
-function createMessageEl(name, minutes, seconds, turns) {
+function createMessageEl() {
   const message1 = document.querySelector(".message1");
   const message2 = document.querySelector(".message2");
 
-  message1.textContent = `Congratulations ${name}!`;
-  if (minutes === 0) {
-    message2.textContent = `You finished the game with ${turns} turns in ${seconds} seconds. Your score ${gameState.totalScore}`;
-  } else if (minutes > 1) {
-    message2.textContent = `You finished the game with ${turns} turns in ${minutes} minutes and ${seconds} seconds. Your score ${gameState.totalScore}`;
+  message1.textContent = `Congratulations ${gameState.userName}!`;
+  if (gameState.minutesPassed === 0) {
+    message2.textContent = `You finished the game with ${gameState.counter} turns in ${gameState.secondsPassed} seconds. Your score ${gameState.totalScore}`;
+  } else if (gameState.minutesPassed > 1) {
+    message2.textContent = `You finished the game with ${gameState.counter} turns in ${gameState.minutesPassed} minutes and ${gameState.secondsPassed} seconds. Your score ${gameState.totalScore}`;
   } else {
-    message2.textContent = `You finished the game with ${turns} turns in ${minutes} minute and ${seconds} seconds. Your score ${gameState.totalScore}`;
+    message2.textContent = `You finished the game with ${gameState.counter} turns in ${gameState.minutesPassed} minute and ${gameState.secondsPassed} seconds. Your score ${gameState.totalScore}`;
   }
 }
 

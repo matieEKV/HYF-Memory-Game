@@ -45,7 +45,8 @@ p {
   font-weight: bold;
 }
 
-.mania {
+.mania,
+.message1 {
   background-image: linear-gradient(
     to right,
     var(--green-start),

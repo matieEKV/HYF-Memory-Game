@@ -179,14 +179,10 @@ function checkForMatch() {
   if (gameState.matchCounter === gameState.cards.length / 2) {
     gameState.isStarted = false;
     stopTimer();
-    const name = getUserName();
+    getScore();
+    gameState.userName = getUserName();
     getTime(timeDisplay.textContent);
-    createMessageEl(
-      name,
-      gameState.minutesPassed,
-      gameState.secondsPassed,
-      gameState.counter,
-    );
+    createMessageEl();
     openModal(gameEnd, gameStart, true);
   }
 }

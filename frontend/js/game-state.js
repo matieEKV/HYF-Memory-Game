@@ -14,4 +14,5 @@ export const gameState = {
   secondsPassed: 0,
   minutesPassed: 0,
   totalScore: 0,
+  userName: null,
 };

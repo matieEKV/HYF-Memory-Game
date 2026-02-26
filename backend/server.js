@@ -4,6 +4,7 @@ import cors from "cors";
 import path from "path";
 import { DECK_IDS } from "../shared/constants.js";
 import { BOARD_SIZES } from "../shared/constants.js";
+import { type } from "os";
 
 //try to awake the server where the page is deployed
 fetch("https://hyf-memory-game.onrender.com/")
@@ -12,6 +13,8 @@ fetch("https://hyf-memory-game.onrender.com/")
 
 const app = express();
 
+app.use(express.json());
+app.use(cors());
 //added a different port for Render deployment
 const port = process.env.PORT || 3000;
 
@@ -26,7 +29,7 @@ const querySQL =
 const knexInstance = knex({
   client: "sqlite3",
   connection: {
-    filename: path.resolve(process.cwd(), "backend/card_decks.db"),
+    filename: path.resolve(process.cwd(), "card_decks.db"),
   },
   useNullAsDefault: true, // Omit warning in console
 });
@@ -34,9 +37,6 @@ const knexInstance = knex({
 function getRandomElement(array) {
   return array[Math.floor(Math.random() * array.length)];
 }
-
-app.use(express.json());
-app.use(cors());
 
 app.get("/", async (req, res) => {
   try {
@@ -67,13 +67,13 @@ app.get("/:deck_id", async (req, res) => {
 
 app.post("/scoreboard", async (req, res) => {
   try {
-    const { user_id, total_score, board_size, difficulty } = req.body;
-
+    const { user_name, total_score, board_size, difficulty } = req.body;
+    console.log(typeof user_name);
     if (
-      !user_id ||
+      !user_name ||
       !total_score ||
       !BOARD_SIZES.includes(board_size) ||
-      !DECK_IDS.includes(difficulty)
+      !DECK_IDS.includes(parseInt(difficulty))
     ) {
       return res.status(400).json({
         error: "missing request body",
@@ -81,7 +81,7 @@ app.post("/scoreboard", async (req, res) => {
     }
 
     await knexInstance("ScoreBoard").insert({
-      user_id,
+      user_name,
       total_score,
       board_size,
       difficulty,
@@ -89,6 +89,9 @@ app.post("/scoreboard", async (req, res) => {
 
     res.status(201).json({ message: "Score saved successfully" });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({
+      error: "Internal Server Error",
+      details: error.message,
+    });
   }
 });

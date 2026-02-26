@@ -185,7 +185,12 @@ function checkForMatch() {
     getTime(timeDisplay.textContent);
     createMessageEl();
     openModal(gameEnd, gameStart, true);
-    storeUserScore();
+    storeUserScore(
+      gameState.userName,
+      gameState.totalScore,
+      gameState.selectedBoardSize,
+      gameState.selectedDeck,
+    );
   }
 }
 

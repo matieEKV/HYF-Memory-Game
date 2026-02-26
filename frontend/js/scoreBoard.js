@@ -1,16 +1,16 @@
 import { gameState } from "./game-state.js";
 
-export function storeUserScore() {
+export function storeUserScore(user_name, total_score, board_size, difficulty) {
   fetch("http://localhost:3000/scoreboard", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      user_name: gameState.userName,
-      total_score: gameState.totalScore,
-      board_size: gameState.selectedBoardSize,
-      difficulty: gameState.selectedDeck,
+      user_name,
+      total_score,
+      board_size,
+      difficulty,
     }),
   })
     .then((response) => {

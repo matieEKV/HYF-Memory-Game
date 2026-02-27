@@ -1,11 +1,12 @@
-import { startTimer, stopTimer, resetTimer } from "./js/timer.js";
+import { startTimer, stopTimer, resetTimer } from "./timer.js";
 import {
   openModal,
   createMessageEl,
   closeModal,
   getUserName,
-} from "./js/modal.js";
-import { getRandomDeck, getRandomSize } from "./js/fallback.js";
+} from "./modal.js";
+import { getRandomSize } from "./fallback.js";
+import { gameState } from "./game-state.js";
 
 const timeDisplay = document.querySelector(".showTime");
 const startGame = document.querySelector(".start-game");
@@ -34,18 +35,8 @@ startNewGame?.addEventListener("click", () => {
   resetStats();
 });
 
-// ===== GAME STATE =====
-let cards = [];
-let firstCard = null;
-let secondCard = null;
-let lockBoard = false;
-let counter = 0;
-let matchCounter = 0;
-let isStarted = false;
-let originalDeck;
-
 // ===== SHOW INITIAL SCORE =====
-counterElement.textContent = counter;
+counterElement.textContent = gameState.counter;
 
 // ===== GET DATA FROM DATABASE =====
 function fetchData() {
@@ -60,7 +51,7 @@ function fetchData() {
 
   //select the size of the grid based on the number of cards
   if (!deck) {
-    deck = getRandomDeck();
+    deck = 3;
   }
   if (!selectedSize) {
     selectedSize = getRandomSize();
@@ -78,10 +69,17 @@ function fetchData() {
     .then((res) => res.json())
     .then((data) => {
       // duplicate cards to make pairs
-      cards = [...data, ...data];
-      shuffleCards(cards);
-      originalDeck = [...cards];
-      createCards(cards);
+      gameState.cards = [...data, ...data];
+      shuffleCards(gameState.cards);
+      gameState.originalDeck = [...gameState.cards];
+      createCards(gameState.cards);
+    })
+    .catch((error) => {
+      console.error("Could not fetch the cards:", error);
+      alert(
+        "Oops! We couldn't load the cards. Please check your connection or try again later.",
+      );
+      openModal(gameStart, gameEnd);
     });
 }
 
@@ -117,64 +115,66 @@ function createCards(cards) {
 function shuffleCards(cards) {
   let currentIndex = cards.length;
   let randomIndex;
-  let temporaryValue;
 
   while (currentIndex !== 0) {
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex--;
 
-    temporaryValue = cards[currentIndex];
-    cards[currentIndex] = cards[randomIndex];
-    cards[randomIndex] = temporaryValue;
+    [cards[currentIndex], cards[randomIndex]] = [
+      cards[randomIndex],
+      cards[currentIndex],
+    ];
   }
 }
 
 // ===== FLIP CARD =====
 function flipCard(clickedCard) {
-  if (lockBoard) return;
+  if (gameState.lockBoard) return;
 
   //timer starts with flip of the first card
-  if (!isStarted) {
+  if (!gameState.isStarted) {
     startTimer((passedTime) => {
       timeDisplay.textContent = passedTime;
     });
-    isStarted = true;
+    gameState.isStarted = true;
   }
-  if (firstCard === clickedCard) return;
 
-  // ✅ THIS WAS THE MAIN BUG (must be 'flipped')
+  if (gameState.firstCard === clickedCard) return;
+
   clickedCard.classList.add("flipped");
 
-  if (!firstCard) {
-    firstCard = clickedCard;
+  if (!gameState.firstCard) {
+    gameState.firstCard = clickedCard;
     return;
   }
-  secondCard = clickedCard;
-  lockBoard = true;
 
-  counter++;
-  counterElement.textContent = counter;
+  gameState.secondCard = clickedCard;
+  gameState.lockBoard = true;
+
+  gameState.counter++;
+  counterElement.textContent = gameState.counter;
 
   checkForMatch();
 }
 
 // ===== CHECK MATCH =====
 function checkForMatch() {
-  const isMatch = firstCard.dataset.name === secondCard.dataset.name;
+  const isMatch =
+    gameState.firstCard.dataset.name === gameState.secondCard.dataset.name;
 
   if (isMatch) {
     disableCards();
-    matchCounter++;
+    gameState.matchCounter++;
   } else {
     unflipCards();
   }
 
   //stop the timer once all the cards have been matched
-  if (matchCounter === cards.length / 2) {
-    isStarted = false;
+  if (gameState.matchCounter === gameState.cards.length / 2) {
+    gameState.isStarted = false;
     stopTimer();
     const name = getUserName();
-    createMessageEl(name, timeDisplay.textContent, counter);
+    createMessageEl(name, timeDisplay.textContent, gameState.counter);
     openModal(gameEnd, gameStart, true);
   }
 }
@@ -182,8 +182,10 @@ function checkForMatch() {
 // ===== DISABLE MATCHED CARDS =====
 function disableCards() {
   setTimeout(() => {
-    firstCard.style.visibility = "hidden";
-    secondCard.style.visibility = "hidden";
+    gameState.firstCard.style.opacity = "0";
+    gameState.firstCard.style.pointerEvents = "none";
+    gameState.secondCard.style.opacity = "0";
+    gameState.secondCard.style.pointerEvents = "none";
     anotherTurn();
   }, 1000);
 }
@@ -191,35 +193,38 @@ function disableCards() {
 // ===== UNFLIP WRONG PAIR =====
 function unflipCards() {
   setTimeout(() => {
-    firstCard.classList.remove("flipped");
-    secondCard.classList.remove("flipped");
+    gameState.firstCard.classList?.remove("flipped");
+    gameState.secondCard.classList?.remove("flipped");
     anotherTurn();
   }, 1000);
 }
 
 // ===== RESET TURN =====
 function anotherTurn() {
-  firstCard = null;
-  secondCard = null;
-  lockBoard = false;
+  gameState.firstCard = null;
+  gameState.secondCard = null;
+  gameState.lockBoard = false;
 }
 
 function resetStats() {
-  firstCard = null;
+  gameState.firstCard = null;
+  gameState.secondCard = null;
+  gameState.isStarted = false;
+  gameState.matchCounter = 0;
+  gameState.counter = 0;
+  gameState.lockBoard = false;
+
   timeDisplay.textContent = "0:0";
-  resetTimer();
-  isStarted = false;
-  stopTimer();
-  matchCounter = 0;
-  counter = 0;
   counterElement.textContent = 0;
+  resetTimer();
+  stopTimer();
 }
 
 // ===== RESTART GAME =====
 function restart() {
   anotherTurn();
   gridContainer.innerHTML = "";
-  createCards(originalDeck);
+  createCards(gameState.originalDeck);
   resetStats();
   closeModal();
 }

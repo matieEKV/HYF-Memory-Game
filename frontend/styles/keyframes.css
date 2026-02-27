@@ -1,0 +1,22 @@
+/* animate appearing window */
+@keyframes animate-window {
+  from {
+    top: -300px;
+    opacity: 0;
+  }
+
+  to {
+    top: 50%;
+    opacity: 1;
+  }
+}
+
+/* ===== FADE IN ANIMATION ===== */
+@keyframes fadeInOpacity {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

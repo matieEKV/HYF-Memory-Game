@@ -6,7 +6,7 @@ function startTimer(onTick) {
   if (!timerInterval) {
     timerInterval = setInterval(() => {
       seconds += 1;
-      if (seconds == 60) {
+      if (seconds === 60) {
         minutes++;
         seconds = 0;
       }

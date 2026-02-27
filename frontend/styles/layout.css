@@ -1,0 +1,18 @@
+/* ===== PAGE ===== */
+body {
+  min-height: 100vh;
+  background-color: var(--primary-background);
+  color: white;
+  perspective: 1000px; /* 3D depth */
+}
+
+.timer-container {
+  gap: 2rem;
+}
+
+/* ===== BUTTON ===== */
+.actions {
+  margin-bottom: 1rem;
+  gap: 2rem;
+  position: relative;
+}

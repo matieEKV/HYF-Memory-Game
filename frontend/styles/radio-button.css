@@ -11,7 +11,7 @@
 }
 
 .radio-button:hover {
-  background-color: #1e2e53;
+  background-color: var(--button-small-hover);
 }
 
 .button-radio:checked + .radio-button,

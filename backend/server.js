@@ -2,6 +2,7 @@ import express, { request } from "express";
 import knex from "knex";
 import cors from "cors";
 import path from "path";
+import { DECK_IDS, BOARD_SIZES } from "../shared/constants.js";
 
 //try to awake the server where the page is deployed
 fetch("https://hyf-memory-game.onrender.com/")
@@ -24,37 +25,39 @@ const querySQL =
 const knexInstance = knex({
   client: "sqlite3",
   connection: {
-    filename: path.resolve(process.cwd(), "card_decks.db"),
+    filename: path.resolve(process.cwd(), "backend/card_decks.db"),
   },
   useNullAsDefault: true, // Omit warning in console
 });
 
-const boardSize = [9, 20, 25];
-const decks = [1, 2, 3, 4, 5];
-
-function getRandomSize() {
-  return boardSize[Math.floor(Math.random() * boardSize.length)];
-}
-
-function getRandomDeck() {
-  return decks[Math.floor(Math.random() * decks.length)];
+function getRandomElement(array) {
+  return array[Math.floor(Math.random() * array.length)];
 }
 
 app.use(express.json());
 app.use(cors());
 
 app.get("/", async (req, res) => {
-  const limit = getRandomSize();
-  const deck_id = getRandomDeck();
-  const rows = await knexInstance.raw(querySQL, [deck_id, limit]);
-  res.json(rows);
+  try {
+    const limit = getRandomElement(BOARD_SIZES);
+    const deck_id = getRandomElement(DECK_IDS);
+    const rows = await knexInstance.raw(querySQL, [deck_id, limit]);
+
+    res.json(rows);
+  } catch (error) {
+    console.error("Database query failed:", error);
+    res.status(500).json({ error: "Database error" });
+  }
 });
 
 app.get("/:deck_id", async (req, res) => {
-  const limit = req.query.limit || getRandomSize();
-  const deck_id = parseInt(req.params.deck_id) || getRandomDeck();
-  const rows = await knexInstance.raw(querySQL, [deck_id, limit]);
-  res.json(rows);
+  try {
+    const limit = parseInt(req.query.limit) || getRandomElement(BOARD_SIZES);
+    const deck_id = parseInt(req.params.deck_id) || getRandomElement(DECK_IDS);
+    const rows = await knexInstance.raw(querySQL, [deck_id, limit]);
+    res.json(rows);
+  } catch (error) {
+    console.error("Database query failed:", error);
+    res.status(500).json({ error: "Database error" });
+  }
 });
-
-app.listen(port);

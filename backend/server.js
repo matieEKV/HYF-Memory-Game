@@ -2,9 +2,7 @@ import express, { request } from "express";
 import knex from "knex";
 import cors from "cors";
 import path from "path";
-import { DECK_IDS } from "../shared/constants.js";
-import { BOARD_SIZES } from "../shared/constants.js";
-import { type } from "os";
+import { DECK_IDS, BOARD_SIZES } from "../shared/constants.js";
 
 //try to awake the server where the page is deployed
 fetch("https://hyf-memory-game.onrender.com/")

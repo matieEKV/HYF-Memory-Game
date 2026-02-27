@@ -5,7 +5,7 @@ import {
   closeModal,
   getUserName,
 } from "./modal.js";
-import { getRandomDeck, getRandomSize } from "./fallback.js";
+import { getRandomSize } from "./fallback.js";
 import { gameState } from "./game-state.js";
 import { storeUserScore } from "./scoreBoard.js";
 
@@ -52,7 +52,7 @@ function fetchData() {
 
   //select the size of the grid based on the number of cards
   if (!deck) {
-    deck = getRandomDeck();
+    deck = 3;
   }
   if (!selectedSize) {
     selectedSize = getRandomSize();
@@ -208,8 +208,8 @@ function disableCards() {
 // ===== UNFLIP WRONG PAIR =====
 function unflipCards() {
   setTimeout(() => {
-    gameState.firstCard.classList.remove("flipped");
-    gameState.secondCard.classList.remove("flipped");
+    gameState.firstCard.classList?.remove("flipped");
+    gameState.secondCard.classList?.remove("flipped");
     anotherTurn();
   }, 1000);
 }

@@ -34,7 +34,7 @@ db.serialize(() => {
     (1, 'Patterns'),
     (2, 'Food'),
     (3, 'Movies'),
-    (4, 'Abstract');
+    (4, 'Abstract'),
     (5, 'Animals'),
   `;
   db.run(insertDecks);
